@@ -1,0 +1,1 @@
+Empty file until we will create the OpenAPI specificatino
