@@ -46,10 +46,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EsotericLanguage"
-                  }
+                  "$ref": "#/components/schemas/EsotericLanguage"
+                  
                 }
               }
             }
@@ -92,67 +90,22 @@
   "components": {
     "schemas": {
       "Criteria": {
-        "description": "Object used to complete the criteria used in searching for an esoteric language",
         "type": "object",
         "properties": {
           "complexity": {
-            "type": "object",
-            "properties": {
-              "difficulty": {
-                "type": "string",
-                "example": "medium",
-                "enum": [
-                  "easy",
-                  "medium",
-                  "hard",
-                  "too_hard"
-                ]
-              },
-              "required": {
-                "type": "boolean",
-                "example": true
-              }
-            }
+            "$ref": "#/components/schemas/Criteria_complexity"
           },
           "release_year": {
-            "type": "object",
-            "properties": {
-              "year": {
-                "type": "integer",
-                "format": "int16",
-                "example": 1976
-              },
-              "required": {
-                "type": "boolean",
-                "example": true
-              }
-            }
+            "$ref": "#/components/schemas/Criteria_release_year"
           },
           "author_details": {
-            "type": "object",
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/AuthorDetails"
-              },
-              "required": {
-                "type": "boolean",
-                "example": true
-              }
-            }
+            "$ref": "#/components/schemas/Criteria_author_details"
           },
           "withExamples": {
-            "type": "object",
-            "properties": {
-              "withExamplesRequired": {
-                "type": "boolean"
-              },
-              "required": {
-                "type": "boolean",
-                "example": true
-              }
-            }
+            "$ref": "#/components/schemas/Criteria_withExamples"
           }
-        }
+        },
+        "description": "Object used to complete the criteria used in searching for an esoteric language"
       },
       "AuthorDetails": {
         "type": "object",
@@ -168,12 +121,12 @@
           "birthDate": {
             "type": "string",
             "format": "date-time",
-            "example": "1945-11-23T00:00:00.000Z"
+            "example": "1945-11-23T00:00:00Z"
           },
           "deathDate": {
             "type": "string",
             "format": "date-time",
-            "example": "1987-04-21T00:00:00.000Z"
+            "example": "1987-04-21T00:00:00Z"
           }
         }
       },
@@ -185,41 +138,101 @@
             "example": "Brainfuck"
           },
           "compiler": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "release_year": {
-                "type": "integer"
-              }
-            }
+            "$ref": "#/components/schemas/EsotericLanguage_compiler"
           },
           "description": {
             "type": "string"
           },
           "examplesOfPrograms": {
             "type": "array",
-            "items": {
-              "type": "string"
-            },
             "example": [
               "Hello world : ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡°(ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) ( ͡°(ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ ( ͡° ͜ʖ ͡°)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)) ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°) ᕦ( ͡°ヮ ͡°)ᕥ(> ͜ʖ<)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡°((∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*) ͡°)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)) ͡°)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ(♥ ͜ʖ♥) ᕦ( ͡°ヮ ͡°)ᕥ(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ(♥ ͜ʖ♥)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)(♥ ͜ʖ♥)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) (♥ ͜ʖ♥)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ ( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ಠ_ಠ"
-            ]
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "author_details": {
             "$ref": "#/components/schemas/AuthorDetails"
           },
           "notableApplications": {
             "type": "array",
-            "items": {
-              "type": "string"
-            },
             "example": [
               "ELUnix",
               "Vindovs",
               "MariDB"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Criteria_complexity": {
+        "type": "object",
+        "properties": {
+          "difficulty": {
+            "type": "string",
+            "example": "medium",
+            "enum": [
+              "easy",
+              "medium",
+              "hard",
+              "too_hard"
             ]
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Criteria_release_year": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer",
+            "format": "int16",
+            "example": 1976
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Criteria_author_details": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AuthorDetails"
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Criteria_withExamples": {
+        "type": "object",
+        "properties": {
+          "withExamplesRequired": {
+            "type": "boolean"
+          },
+          "required": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "EsotericLanguage_compiler": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "release_year": {
+            "type": "integer"
           }
         }
       }

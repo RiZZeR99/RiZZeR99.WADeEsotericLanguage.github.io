@@ -48,65 +48,274 @@
     </div>
     <section id="project-idea">
 
+        <h2><span>1</span> Project Overview</h2>
+        <h3>
+            <span>1.1<span> Goals
+        </h3>
+        <p>
+            The ELA (Esoteric Language Explorer) application wants to give to anyone who thinks that has a uncommon way
+            of thinking a challenge by providing all the possible information about esoteric programming languages.
+        </p>
+        <br />
+        <h3>
+            <span>1.2</span> Structure
+        </h3>
+        <p>
+            The application consists of a 2-pages web interface and a public SPARQL API. The web pages are designed for
+            the human users, and the API can be accessed by other applications.
+        </p>
+        <p>
+            One of the pages is for completing a form where the user can decide what criteria should be fulfilled by an
+            esoteric language. For example, the user wants to know about difficult esoteric languages, or esoteric
+            languages that are based on <em>Brainfuck</em>.
+            The list of criteria is dynamic, this means that the user will be able to add/remove items from the criteria
+            list that is sent to the application.
+        </p>
+        <p>
+            The other page is for interrogating the application for a random esoteric language. The page has a simple
+            button that will send a request to the endpoint to return a random esoteric language.
+        </p>
+        <p>
+            The SPARQL component represents a public endpoint that can be accessed by anyone. This endpoints provides
+            two functionalitites:
+        <ol start="1">
+            <li>Retrieve an esoteric language that meets all the criteria/ requirements</li>
+            <li>Retrieve a random esoteric language</li>
+        </ol>
+        </p>
+        <p>A generic view of the application is as followed:</p>
+        <p>
+            <img src="documentation/diagrams/c4_first_level.png" alt="c4_first_level">
+        </p>
     </section>
+    <br />
     <section id="project-implementation">
+        <h2><span>2</span> Projet Implementation</h2>
+
         <section id="ela-ui">
-            <h2>ELA-UI</h2>
+            <h3><span>2.1</span> ELA-UI</h3>
             <p>
-                <!--
-                todo complete what the UI does
-            -->
+                The web pages will be implemented using <b>HTML5</b>, <b>CSS</b> and vanilla <b>Javascripts</b>.
             </p>
-        </section>
-        <section id="ela-back">
-            <h2>ELA-BACKEND</h2>
             <p>
-                <!--
-                todo complete what the BACK does
-            -->
+                Both pages will contain one thing in common, and that thing is a button/link that will redirect to the
+                other we page.
             </p>
-        </section>
-        <section id="ela-sparql">
-            <h2>ELA-SPARQL</h2>
             <p>
-                <!--
-                todo complete what the sparql api does
-            -->
+                The requests executed by both pages will be done using <b>jQuery</b> in an asynchronous way.
+            </p>
+            <section id="web-page-criteria">
+                <h4><span>2.1.1</span> Criteria page</h4>
+                <p>
+                    The page for getting a suggested esoteric language on criteria will have a dynamic form, with
+                    buttons to add specific criteria elements (elements used in the ontology) and remove those elements.
+                </p>
+            </section>
+            <section id="web-page-random">
+                <h4><span>2.1.2</span> Random page</h4>
+                <p>
+                    The random page will have, beside the button that redirects to the criteria page, a button to send a
+                    request to the application to receive a random esoteric language.
+                </p>
+            </section>
+            <section id="web-page-responses">
+                <h4><span>2.1.3</span> Handling responses</h4>
+                <p>
+                    Once the response is received from the server, if the HTTP reponse code is success (200), then the
+                    page
+                    will render a new HTML element that will contain information about the retrieved esoteric language.
+                </p>
+                <p>
+                    There can also be the scenarion when the application cannot find an esoteric language and an HTTP
+                    error
+                    code (404) is returned. In this scenarion, the UI will render a HTML element that will display the
+                    result of the search.
+                </p>
+            </section>
+            <p>
+                A visual explanation of the pages can be view in the following diagram:
+            </p>
+            <p>
+                <img src="documentation/diagrams/c4_third_level_ui.png" alt="c4_third_level_ui">
             </p>
         </section>
 
-        <section id="ela-ontology">
-            <h2>ELA-Ontology</h2>
+        <section id="ela-sparql">
+            <h3><span>2.2</span> ELA-SPARQL</h3>
             <p>
-                The ontology will be created as a base for the languages, their properties, and related concepts, such as compilers. These will be added as classes into the ontology with the aforementioned specific properties and relations.
+                The ELA-SPARQL will represents the main endpoint used by the whole application. This endpoint will be
+                public to the world, this means that it can also be accessed by other means than using the web pages.
+            </p>
+            <section id="ela-sparql-tools">
+                <h4><span>2.2.1</span> Tools</h4>
+                <p>
+                    The following technologies are going to be used in the development of the web application:
+                </p>
+                <ul id="ela-sparql-tools-list">
+                    <li><b>Java</b> - as the main programming language</li>
+                    <li><b>Springboot</b> - as the framwork used in generating the template for the endpoint and further
+                        development</li>
+                    <li><b>Maven</b> - as the tool to manage the dependencies of the project</li>
+                    <li><b>Apache Jena</b> - as the framework for extracting information from the ontology</li>
+                    <li><b>Tomcat</b> - as the web application server host</li>
+                </ul>
+            </section>
+            <section id="ela-sparql-description">
+                <h4><span>2.2.2</span> Description</h4>
+                <p>
+                    The web application will provide two endpoints:
+                <ul>
+                    <li>
+                        Retrieve esoteric language based on given criteria
+                    </li>
+                    <li>
+                        Retrieve a random esoteric language
+                    </li>
+                </ul>
+                </p>
+                <p><em><u>Note:</u></em> By <em>esoteric language</em>, in the above list, it was referred to all linked
+                    information. To see what information is related to such a resource, see <a
+                        href="#ela-ontology">Ontology</a></p>
+            </section>
+            <section id="ela-sparql-description-criteria">
+                <h5><span>2.2.2.1</span> Criteria language</h5>
+                <p>
+                    This endpoint will receive an object will requested criteria to be processed.
+                    Using the selected criteria, the web application will build the SPARQL query using the Jena
+                    framework to execute it on the ontology.
+                    Here are 4 scenarios that must to be handled accordingly:
+                <ol id="ela-sparql-description-criteria-situations">
+                    <li>The query returns one esoteric language: That language is returned</li>
+                    <li>The query returns more than one language: A random language is chosen to be returned to the
+                        caller</li>
+                    <li>The query returns no language: the call returns the HTTP return code 404 - Not Found</li>
+                    <li>For any error encountered by the server: the call returns the HTTP return code 500 - Server
+                        Error</li>
+                </ol>
+                </p>
+            </section>
+
+            <section id="ela-sparql-description-random">
+                <h5><span>2.2.2.2</span> Random language</h5>
+                <p>
+                    The random generation is done by selecting random criteria. After the elements of the criteria are
+                    selected,
+                    those are filled with information from the ontology. The information extracted from the ontology is
+                    limited.
+                </p>
+                <p> For example, if the criteria is <em>difficulty</em>, then the application
+                    will extracted from the ontology the first 10 results for this criteria existent in the ontology,
+                    and then chosen a random one. In the ontology, this criteria can have
+                    the following values: <u>easy</u>, <u>medium</u>, <u>hard</u>, <u>very_hard</u>, <u>unholy</u>,
+                    <u>why</u>. A random value from this list can be <u>why</u>.
+                </p>
+                <p>
+                    The return situations are similarly with <a href="#ela-sparql-description-criteria">Criteria
+                        Endpoint</a>, with the exception that if no language is found, the criteria is re-generated and
+                    the query is executed again.
+                </p>
+            </section>
+            <p>
+                A visualisation of how the endpoints works together can be seen in the following image:
+            </p>
+            <p>
+                <img src="documentation/diagrams/c4_third_level_sparql.png">
+            </p>
+            <section id="ela-sparql-api-specification">
+                <h4><span>2.2.3</span> API Specification</h4>
+                <p>
+                    At the following link it is presented the OpenAPI specification of the SPARQL endpoint: <a
+                        href="https://app.swaggerhub.com/apis-docs/RAMUSTEATA/ELA-SPARQL/1.0.0">API documentation</a>
+                </p>
+            </section>
+        </section>
+
+        <section id="ela-ontology">
+            <h3><span>2.3</span> ELA-Ontology</h3>
+            <p>
+                The ontology will be created as a base for the languages, their properties, and related concepts, such
+                as compilers, editors, authors, notable application etc. These will be added as classes into the
+                ontology with the aforementioned specific
+                properties and relations.
             </p>
             <p>
                 Below is an example of an RDF graph for one of the esoteric languages:
             </p>
-            <img class="img-ss-medium img-bg" src="documentation/rdf_graph/brainfuck_rdf_graph.drawio.png" alt="Brainfuck RDF graph">
-        </section>
+            <img class="img-ss-medium img-bg" src="documentation/rdf_graph/brainfuck_rdf_graph.drawio.png"
+                alt="Brainfuck RDF graph">
 
-        <section id="linked-data-principles">
-            <h2>Linked data principles</h2>
+            <section id="ela-ontology-tools">
+                <h4><span>2.3.1</span> Tools</h4>
+                <p>
+                    To develop the ontology, the following tools are used:
+                </p>
+                <ul id="ela-ontology-tools-list">
+                    <li>Protégé - <cite>open source ontology editor and a knowledge management system</cite> from Google
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </section>
+
+    <section id="ela-use-cases">
+        <h2><span>3</span> Use cases</h2>
+        <section id="ela-use-cases-human">
+            <h3><span>3.1</span> Human use case</h3>
             <p>
-                Every information provided about a concept will come along with specific metadata from the ontology and
-                the ontology will have references for the properties to other relevant ontologies.
-                <br>
-                Further details will be added as the solution will be developed.
-                <br><br>
-                <b>The four rules:</b >
-                <br>
-                1. Use URIs as names for things
-                <br>
-                2. Use HTTP URIs so that people can look up those names.
-                <br>
-                3. When someone looks up a URI, provide useful information, using the standards (RDF*, SPARQL)
-                <br>
-                4. Include links to other URIs. so that they can discover more things.
-                <br>
+                <img src="documentation/use-cases/ui_use_case.png">
             </p>
-
         </section>
 
+        <section id="ela-use-cases-robot">
+            <h3><span>3.2</span> Robot use case</h3>
+            <p>
+                <img src="documentation/use-cases/robot_use_case.png">
+            </p>
+        </section>
+    </section>
+
+    <section id="linked-data-principles">
+        <h2><span>4</span> Linked data principles</h2>
+        <p>In this section, it is motivated why out system follows the <em>linked data principles.</em></p>
+        <p>A definition will be:</p>
+        <p id="linked-data-principles-definition">
+            Every information provided about a concept will come along with specific metadata from the ontology and
+            the ontology will have references for the properties to other relevant ontologies.
+            <br>
+            Further details will be added as the solution will be developed.
+            <br><br>
+            <b>The four rules:</b>
+            <br>
+            1. Use URIs as names for things
+            <br>
+            2. Use HTTP URIs so that people can look up those names.
+            <br>
+            3. When someone looks up a URI, provide useful information, using the standards (RDF*, SPARQL)
+            <br>
+            4. Include links to other URIs. so that they can discover more things.
+            <br>
+        </p>
+        <p id="linked-data-principles-motivation">
+            Our model follows those principles because:
+            <ul>
+                <li>
+                    The available resources (getByCriteria and getRandom) are represented by the URL.
+                </li>
+                <li>
+                    The protocol used is HTTP with URL.
+                </li>
+                <li>
+                    The models used when using an URL are described in the specification.
+                </li>
+                <li>
+                    The resources will include links to related resources (compilers, authors, homepages etc.).
+                </li>
+            </ul>
+        </p>
+    </section>
+    <section id="resource">
+        <h2><span>5</span> Resources</h2>
+        <p>Resources used in the processes of research, development and documentation:</p>
+        <!--TODO complete with references-->
     </section>
 </body>
