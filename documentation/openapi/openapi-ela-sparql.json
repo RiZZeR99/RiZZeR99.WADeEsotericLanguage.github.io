@@ -1,0 +1,228 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ELA SPARQL Endpoint - OpenAPI 3.0",
+    "description": "This document is for describing the functionalities provided by the ELA SPARQL component.",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://ela.sparql.org/api/v1.0"
+    }
+  ],
+  "tags": [
+    {
+      "name": "ela",
+      "description": "Everything about esoteric languages and more"
+    }
+  ],
+  "paths": {
+    "/getByCriteria": {
+      "post": {
+        "tags": [
+          "ela"
+        ],
+        "summary": "Get a list of esoteric languages based on the criteria",
+        "description": "Based on a list of completed criteria, the application will return a list of matched esoteric languages",
+        "operationId": "getByCriteria",
+        "requestBody": {
+          "description": "Entity with criteria completed by the user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Criteria"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EsotericLanguage"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No esoteric language found based on the criteria"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/getRandom": {
+      "get": {
+        "tags": [
+          "ela"
+        ],
+        "summary": "Random esoteric language",
+        "description": "Returns a random esoteric language, for the scenario when the user wants an esoteric language without to think too much about it",
+        "operationId": "getRandom",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EsotericLanguage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Criteria": {
+        "description": "Object used to complete the criteria used in searching for an esoteric language",
+        "type": "object",
+        "properties": {
+          "complexity": {
+            "type": "object",
+            "properties": {
+              "difficulty": {
+                "type": "string",
+                "example": "medium",
+                "enum": [
+                  "easy",
+                  "medium",
+                  "hard",
+                  "too_hard"
+                ]
+              },
+              "required": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "release_year": {
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "integer",
+                "format": "int16",
+                "example": 1976
+              },
+              "required": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "author_details": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/AuthorDetails"
+              },
+              "required": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "withExamples": {
+            "type": "object",
+            "properties": {
+              "withExamplesRequired": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "AuthorDetails": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Foo Daniels"
+          },
+          "nationality": {
+            "type": "string",
+            "example": "de"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1945-11-23T00:00:00.000Z"
+          },
+          "deathDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1987-04-21T00:00:00.000Z"
+          }
+        }
+      },
+      "EsotericLanguage": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Brainfuck"
+          },
+          "compiler": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "release_year": {
+                "type": "integer"
+              }
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "examplesOfPrograms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Hello world : ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡°(ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) ( ͡°(ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ ( ͡° ͜ʖ ͡°)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)) ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°) ᕦ( ͡°ヮ ͡°)ᕥ(> ͜ʖ<)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡°((∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*) ͡°)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)) ͡°)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ(♥ ͜ʖ♥) ᕦ( ͡°ヮ ͡°)ᕥ(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ(♥ ͜ʖ♥)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)(♥ ͜ʖ♥)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) (♥ ͜ʖ♥)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ ( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ಠ_ಠ"
+            ]
+          },
+          "author_details": {
+            "$ref": "#/components/schemas/AuthorDetails"
+          },
+          "notableApplications": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "ELUnix",
+              "Vindovs",
+              "MariDB"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
