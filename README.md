@@ -3,6 +3,7 @@ WADE Esoteric Language Explorer project
 GitHub.io for the Scholarly HTML report
 
 Blog: https://elawade.blogspot.com/
+
 Scholarly report: https://rizzer99.github.io/
 
 ## Authors
