@@ -1,6 +1,8 @@
 # Esoteric Language Explorer
-WADE Esoteric Language explorer progress blog
+WADE Esoteric Language Explorer project
+GitHub.io for the Scholarly HTML report
 
+Blog: https://elawade.blogspot.com/
 
 ## Authors
 
