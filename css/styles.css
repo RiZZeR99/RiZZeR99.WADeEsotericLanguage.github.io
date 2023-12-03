@@ -38,6 +38,7 @@ main {
 }
 
 article {
+    display: block;
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 5px;
