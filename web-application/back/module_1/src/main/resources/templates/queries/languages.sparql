@@ -1,0 +1,44 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ela: <http://www.semanticweb.org/ela-ontology#>
+SELECT ?language ?author ?interpreter ?compiler ?date ?language_description ?language_name ?language_difficulty
+#SELECT *
+WHERE
+{
+	?language a ela:Language. #the language is an instance of class Language
+	#?language ela:LanguageName "Malbolge"^^xsd:string. #search for a language that has the given name
+	#optional areas mark that there may be no data
+	# queries with ?value relationship ?value means to display all the relationships
+	# more fine-tuning can be done with the FILTER option
+	#https://en.wikibooks.org/wiki/SPARQL/FILTER
+	OPTIONAL
+	{
+		?language ela:isCreatedBy ?author.
+	}
+	OPTIONAL
+	{
+		?language ela:isInterpretedBy ?interpreter.
+	}
+	OPTIONAL
+	{
+		?language ela:isCompiledWith ?compiler.
+	}
+	OPTIONAL
+	{
+		?language ela:DateOfCreation ?date
+	}
+	OPTIONAL
+	{
+		?language ela:LanguageName ?language_name.
+	}
+	OPTIONAL
+	{
+		?language ela:LanguageDescription ?language_description.
+	}
+	OPTIONAL
+	{
+		?language ela:hasDifficulty ?language_difficulty
+	}
+}
