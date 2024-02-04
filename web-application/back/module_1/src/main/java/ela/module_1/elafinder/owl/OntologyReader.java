@@ -71,15 +71,15 @@ public class OntologyReader {
                 .addVar("?date")
                 .addVar("?language_description")
                 .addVar("?language_name")
-                .addVar("?language_difficulty")
+                .addVar("?diff_alias")
                 .addWhere("?language", "a", "ela:Language")
                 .addWhere("?language", "ela:hasDifficulty", "?language_difficulty")
+                .addWhere("?language_difficulty", "ela:DifficultyAlias", "?diff_alias")
                 .addOptional("?language", "ela:LanguageName", "?language_name")
                 .addOptional("?language", "ela:LanguageDescription", "?language_description");
 
         if (criteria.getComplexity() != null && criteria.getComplexity().isRequired()) {
-            selectBuilder.addWhere("?language_difficulty", "ela:DifficultyAlias", "?diff_alias")
-                    .addFilter(String.format("(str(?diff_alias) = \"%s\")", criteria.getComplexity().getDifficulty()));
+            selectBuilder.addFilter(String.format("(str(?diff_alias) = \"%s\")", criteria.getComplexity().getDifficulty()));
         }
 
         if (criteria.getReleaseYear() != null && criteria.getReleaseYear().isRequired()) {
@@ -119,7 +119,7 @@ public class OntologyReader {
 
         AuthorDetails author = getAuthorForLanguage(model, language);
 
-//        CriteriaComplexity.DifficultyEnum difficulty = CriteriaComplexity.DifficultyEnum.fromValue(solution.getResource("language_dificulty").get.getLexicalForm());
+        CriteriaComplexity.DifficultyEnum difficulty = CriteriaComplexity.DifficultyEnum.fromValue(solution.getLiteral("diff_alias").getLexicalForm());
 
         esotericLanguage.setName(name.getLexicalForm());
         esotericLanguage.setDescription(description.getLexicalForm());
@@ -131,7 +131,7 @@ public class OntologyReader {
 
         esotericLanguage.setExamplesOfPrograms(programs);
 
-//        esotericLanguage.setDifficulty(difficulty);
+        esotericLanguage.setDifficulty(difficulty);
 
         return esotericLanguage;
     }
@@ -214,7 +214,7 @@ public class OntologyReader {
         ParameterizedSparqlString parameterizedQuery = new ParameterizedSparqlString(queryString);
 
         // Set the parameter value
-        parameterizedQuery.setLiteral("language_placeholder", language.getURI());
+        parameterizedQuery.setIri("language_placeholder", language.getURI());
 
         // Execute the parameterized query
         try (QueryExecution queryExecution = QueryExecutionFactory.create(parameterizedQuery.asQuery(), model)) {
