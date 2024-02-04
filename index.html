@@ -57,33 +57,39 @@
             of thinking a challenge by providing all the possible information about esoteric programming languages.
         </p>
         <p>
-            Our progress can be followed here, on the blog: <a href="https://elawade.blogspot.com/">Ela blog</a>
+            Our progress can be followed here, on the blog: <a href="https://elawade.blogspot.com/">ELA blog</a>
         </p>
         <br />
         <h3>
             <span>1.2</span> Structure
         </h3>
         <p>
-            The application consists of a 2-pages web interface and a public SPARQL API. The web pages are designed for
+            The application consists of a 1-page web interface and a public SPARQL endpoint. The web page is designed
+            for
             the human users, and the API can be accessed by other applications.
         </p>
         <p>
-            One of the pages is for completing a form where the user can decide what criteria should be fulfilled by an
+            The main pages is for completing a form where the user can decide what criteria should be fulfilled by an
             esoteric language. For example, the user wants to know about difficult esoteric languages, or esoteric
             languages that are based on <em>Brainfuck</em>.
-            The list of criteria is dynamic, this means that the user will be able to add/remove items from the criteria
+            The list of criteria is dynamic, this means that the user will be able to select/unselect items from the
+            criteria
             list that is sent to the application.
         </p>
         <p>
-            The other page is for interrogating the application for a random esoteric language. The page has a simple
-            button that will send a request to the endpoint to return a random esoteric language.
+            The main page also has the option to generate random data to be sent to be web application in order to
+            receive random languages.
+        </p>
+        <p>
+            For a received language, the interface will display in the first phase a summary of the language, like the
+            name. The user will have access to extend the information displayed in the interface.
         </p>
         <p>
             The SPARQL component represents a public endpoint that can be accessed by anyone. This endpoints provides
             two functionalitites:
         <ol start="1">
-            <li>Retrieve an esoteric language that meets all the criteria/ requirements</li>
-            <li>Retrieve a random esoteric language</li>
+            <li>Retrieve a list of esoteric languages that meet all the criteria/ requirements</li>
+            <li>Retrieve information for a specific esoteric language</li>
         </ol>
         </p>
         <p>A generic view of the application is as followed:</p>
@@ -101,24 +107,37 @@
                 The web pages will be implemented using <b>HTML5</b>, <b>CSS</b> and vanilla <b>Javascripts</b>.
             </p>
             <p>
-                Both pages will contain one thing in common, and that thing is a button/link that will redirect to the
-                other we page.
+                The page will be divided in 2 section:
+            <ul>
+                <li>
+                    The above section, designed for setting preferences for the languages.
+                </li>
+                <li>
+                    The below section, for displaying information about the languages.
+                </li>
+            </ul>
+            The below section will represent a list of the following items:
+            <ul>
+                <li>
+                    A summary about the language.
+                </li>
+                <li>
+                    All the details available for a language.
+                </li>
+            </ul>
             </p>
             <p>
-                The requests executed by both pages will be done using <b>jQuery</b> in an asynchronous way.
+                The requests called by the Javascript to the application server will be done using the <b><a
+                        href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch</a></a></b>
+                API.
             </p>
             <section id="web-page-criteria">
                 <h4><span>2.1.1</span> Criteria page</h4>
                 <p>
-                    The page for getting a suggested esoteric language on criteria will have a dynamic form, with
-                    buttons to add specific criteria elements (elements used in the ontology) and remove those elements.
-                </p>
-            </section>
-            <section id="web-page-random">
-                <h4><span>2.1.2</span> Random page</h4>
-                <p>
-                    The random page will have, beside the button that redirects to the criteria page, a button to send a
-                    request to the application to receive a random esoteric language.
+                    The page for getting a suggested esoteric language on criteria will have a static desgin.
+                    The criteria will be represented by fields in a form with predefined values. The user can select a
+                    value, meaning that they want the
+                    condition to be taken into account when retrieving languages, or not.
                 </p>
             </section>
             <section id="web-page-responses">
@@ -126,20 +145,25 @@
                 <p>
                     Once the response is received from the server, if the HTTP reponse code is success (200), then the
                     page
-                    will render a new HTML element that will contain information about the retrieved esoteric language.
+                    will render a new HTML element that will contain information about the retrieved esoteric languages.
                 </p>
                 <p>
                     There can also be the scenarion when the application cannot find an esoteric language and an HTTP
                     error
-                    code (404) is returned. In this scenarion, the UI will render a HTML element that will display the
-                    result of the search.
+                    code (404) is returned. In this scenarion, the UI will render an empty HTML object.
                 </p>
             </section>
             <p>
-                A visual explanation of the pages can be view in the following diagram:
+                A visual flow of the application where the UI intervine can be viewed in the following diagram:
             </p>
             <p>
                 <img src="documentation/diagrams/c4_third_level_ui.png" alt="c4_third_level_ui">
+            </p>
+            <p>
+                The following image shows the layout of the page:
+            </p>
+            <p id="design-page-layout">
+                <img src="documentation/app_ui/ui-interface.PNG">
             </p>
         </section>
 
@@ -169,10 +193,10 @@
                     The web application will provide two endpoints:
                 <ul>
                     <li>
-                        Retrieve esoteric language based on given criteria
+                        Retrieve a set of summary about esoteric languages based on given criteria
                     </li>
                     <li>
-                        Retrieve a random esoteric language
+                        Retrieve a specific esoteric language
                     </li>
                 </ul>
                 </p>
@@ -186,31 +210,38 @@
                     This endpoint will receive an object will requested criteria to be processed.
                     Using the selected criteria, the web application will build the SPARQL query using the Jena
                     framework to execute it on the ontology.
-                    Here are 4 scenarios that must to be handled accordingly:
+                    Here are 3 scenarios that must to be handled accordingly:
                 <ol id="ela-sparql-description-criteria-situations">
-                    <li>The query returns one esoteric language: That language is returned</li>
-                    <li>The query returns more than one language: A random language is chosen to be returned to the
-                        caller</li>
+                    <li>The query returns at least one language: the return code is 200 and the list of the languages is
+                        returned with the number of found languages</li>
                     <li>The query returns no language: the call returns the HTTP return code 404 - Not Found</li>
                     <li>For any error encountered by the server: the call returns the HTTP return code 500 - Server
                         Error</li>
                 </ol>
                 </p>
+                <p>
+                    More tehnical details about the API can be consulted here: <a
+                        href="https://app.swaggerhub.com/apis/RAMUSTEATA/ELA-SPARQL/1.0.0#/ela/getByCriteria">Get
+                        languages by criteria</a>
+                </p>
             </section>
 
-            <section id="ela-sparql-description-random">
-                <h5><span>2.2.2.2</span> Random language</h5>
+            <section id="ela-sparql-description-by-name">
+                <h5><span>2.2.2.2</span> Esoteric language by name</h5>
                 <p>
-                    The random generation is done by selecting random criteria. After the elements of the criteria are
-                    selected,
-                    those are filled with information from the ontology. The information extracted from the ontology is
-                    limited.
+                    This API uses the <em>GET</em> method in order to return the required language.
+                    By using the REST approach, someone will need the name of the language in order to retrieve all the
+                    date.
                 </p>
-                <p> For example, if the criteria is <em>difficulty</em>, then the application
-                    will extracted from the ontology the first 10 results for this criteria existent in the ontology,
-                    and then chosen a random one. In the ontology, this criteria can have
-                    the following values: <u>easy</u>, <u>medium</u>, <u>hard</u>, <u>very_hard</u>, <u>unholy</u>,
-                    <u>why</u>. A random value from this list can be <u>why</u>.
+                <p>
+                    The name of the language is extracted from the IRI, which is present in the body of the languages
+                    retrieved by the <a href="#ela-sparql-description-criteria">Criteria
+                        Endpoint</a> API.
+                </p>
+                <p>
+                    More tehnical details are presented here: <a
+                        href="https://app.swaggerhub.com/apis/RAMUSTEATA/ELA-SPARQL/1.0.0#/ela/getByName">Get languages
+                        by name</a>
                 </p>
                 <p>
                     The return situations are similarly with <a href="#ela-sparql-description-criteria">Criteria
@@ -219,7 +250,7 @@
                 </p>
             </section>
             <p>
-                A visualisation of how the endpoints works together can be seen in the following image:
+                A visualisation of how the API's works together can be seen in the following image:
             </p>
             <p>
                 <img src="documentation/diagrams/c4_third_level_sparql.png">
@@ -237,7 +268,7 @@
             <h3><span>2.3</span> ELA-Ontology</h3>
             <p>
                 The ontology will be created as a base for the languages, their properties, and related concepts, such
-                as compilers, editors, authors, notable application etc. These will be added as classes into the
+                as compilers, editors, authors, program examples etc. These will be added as classes into the
                 ontology with the aforementioned specific
                 properties and relations.
             </p>
@@ -250,12 +281,30 @@
             <section id="ela-ontology-tools">
                 <h4><span>2.3.1</span> Tools</h4>
                 <p>
-                    To develop the ontology, the following tools are used:
+                    To develop the ontology, the following tools were used:
                 </p>
                 <ul id="ela-ontology-tools-list">
-                    <li>Protégé - <cite>open source ontology editor and a knowledge management system</cite> from Google
+                    <li>
+                        <p>
+                            Protégé - <cite>open source ontology editor and a knowledge management system</cite> from
+                            Standford
+                        </p>
+                        <p><a href="https://protege.stanford.edu/">Home page</a></p>
                     </li>
                 </ul>
+            </section>
+            <section id="ela-ontology-overview">
+                <p>
+                    In this section are presented images from the ontology.
+                    The images represents a structure of the implemented classes 
+                    and what languages were added to it.
+                </p>
+                <p id="ela-ontology-overview-protegee">
+                    <img src="documentation/ontology/ontology_overview.PNG">
+                </p>
+                <p id="ela-ontology-overview-example">
+                    <img src="documentation/ontology/ontology_example.PNG">
+                </p>
             </section>
         </section>
     </section>
@@ -300,25 +349,32 @@
         </p>
         <p id="linked-data-principles-motivation">
             Our model follows those principles because:
-            <ul>
-                <li>
-                    The available resources (getByCriteria and getRandom) are represented by the URL.
-                </li>
-                <li>
-                    The protocol used is HTTP with URL.
-                </li>
-                <li>
-                    The models used when using an URL are described in the specification.
-                </li>
-                <li>
-                    The resources will include links to related resources (compilers, authors, homepages etc.).
-                </li>
-            </ul>
+        <ul>
+            <li>
+                The available resources (getByCriteria and getByName) are represented by the URL.
+            </li>
+            <li>
+                The protocol used is HTTP with URL.
+            </li>
+            <li>
+                The models are identified using their IRI <em>(International Resource Identifier)</em>.
+            </li>
+            <li>
+                The resources will include links to related resources (compilers, authors, homepages etc.).
+            </li>
+        </ul>
         </p>
     </section>
-    <section id="resource">
+    <section id="resources">
         <h2><span>5</span> Resources</h2>
         <p>Resources used in the processes of research, development and documentation:</p>
-        <!--TODO complete with references-->
+        <ol>
+            <li><a href="https://profs.info.uaic.ro/~busaco/teach/courses/wade/web-film.html">WADe</a></li>
+            <li><a href="https://www.youtube.com/watch?v=LQ4iW3PO36E">Protege tutorial</a></li>
+            <li><a href="https://jena.apache.org/documentation/ontology/">Jena</a></li>
+            <li><a href="https://spring.io/guides/gs/spring-boot/">SpringBoot initializer</a></li>
+            <li><a href="https://sachipcranasinghe.medium.com/intro-to-sparql-part1-103957d8e854">SPARQL introduction</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Introduction">Introduction to Javascript</a></li>
+        </ol>
     </section>
 </body>

@@ -2,6 +2,7 @@ const difficultyOptions = ['easy', 'moderate', 'hard', 'no_chance'];
 const releaseYearOptions = generateYearOptions(1950, new Date().getFullYear());
 const authorNationalityOptions = ['romanian', 'american', 'british', 'french', 'german', 'italian', 'spanish', 'chinese', 'indian', 'japanese', 'russian', 'canadian', 'australian', 'swedish', 'dutch', 'mexican', 'brazilian', 'argentinian', 'south_african', 'egyptian'];
 const booleanOptions = ['Yes', 'No']
+extracted_languages = [];
 
 
 function generateYearOptions(startYear, endYear) {
@@ -95,20 +96,16 @@ function submitCriteria() {
     sendData(finalCriteria);
 }
 
-function mapYesNoToBoolean(stringValue)
-{
-    switch(stringValue)
-    {
+function mapYesNoToBoolean(stringValue) {
+    switch (stringValue) {
         case 'Yes': return true;
         case 'No': return false;
         default: return null;
     }
 }
 
-function mapBooleanValueToYeNo(booleanValue)
-{
-    switch(booleanValue)
-    {
+function mapBooleanValueToYeNo(booleanValue) {
+    switch (booleanValue) {
         case true: return 'Yes';
         case false: return 'No';
         default: return 'None';
@@ -157,13 +154,13 @@ function sendData(criteria) {
         },
         body: JSON.stringify(criteria),
     })
-    .then(response => response.text())
-    .then(data => {
-        displayLanguages(data)
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+        .then(response => response.text())
+        .then(data => {
+            displayLanguages(data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
 function updateUI(criteria) {
@@ -188,6 +185,7 @@ function displayLanguages(data) {
         languageDiv.appendChild(nameHeader);
 
         const addButton = document.createElement('button');
+        addButton.setAttribute("id", "button-" + language.name);
         addButton.textContent = '+';
         addButton.addEventListener('click', () => getSpecificLanguageInfo(language, languageDiv));
         languageDiv.appendChild(addButton);
@@ -197,19 +195,24 @@ function displayLanguages(data) {
 }
 
 function getSpecificLanguageInfo(language, languageDiv) {
-    fetch('http://localhost:8080/getByName' + '/' + extractNameFromUri(language.resource_uri), {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => response.text())
-    .then(data => {
-        showDetails(data, languageDiv)
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    if (extracted_languages[language.name] === undefined) // checking if the language was already extracted from the ontology
+    {
+        uri = 'http://localhost:8080/getByName' + '/' + escape(extractNameFromUri(language.resource_uri));
+        fetch(uri, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.text())
+            .then(data => {
+                extracted_languages[language.name] = data; // marking that the language was already called/extracted from the ontology
+                showDetails(data, languageDiv)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 }
 
 function extractNameFromUri(uri) {
@@ -277,8 +280,8 @@ function showDetails(data, languageDiv) {
     const linkElement = document.createElement('a');
     linkElement.textContent = "External link";
     linkElement.href = language.external_link;
-    
+
     externalLinkParagraph.appendChild(linkElement);
-    
+
     languageDiv.appendChild(externalLinkParagraph);
 }
