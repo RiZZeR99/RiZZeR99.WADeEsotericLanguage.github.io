@@ -18,8 +18,10 @@ public class EsotericLanguage {
     @JsonProperty("name")
     private String name = null;
 
-    @JsonProperty("compiler")
-    private EsotericLanguageCompiler compiler = null;
+    @JsonProperty("compilers")
+    private List<EsotericLanguageCompiler> compilers = null;
+    @JsonProperty("interpreters")
+    private List<EsotericLanguageInterpreter> interpreters = null;
 
     @JsonProperty("description")
     private String description = null;
@@ -50,25 +52,37 @@ public class EsotericLanguage {
         this.name = name;
     }
 
-    public EsotericLanguage compiler(EsotericLanguageCompiler compiler) {
-        this.compiler = compiler;
+    public EsotericLanguage compiler(List<EsotericLanguageCompiler> compilers) {
+        this.compilers = compilers;
         return this;
     }
 
-    /**
-     * Get compiler
-     *
-     * @return compiler
-     **/
     @Schema(description = "")
 
-    public EsotericLanguageCompiler getCompiler() {
-        return compiler;
+    public List<EsotericLanguageCompiler> getCompilers() {
+        return compilers;
     }
 
-    public void setCompiler(EsotericLanguageCompiler compiler) {
-        this.compiler = compiler;
+    public void setInterpreters(List<EsotericLanguageCompiler> compilers) {
+        this.compilers = compilers;
     }
+
+
+    public EsotericLanguage interpreters(List<EsotericLanguageInterpreter> interpreters) {
+        this.interpreters = interpreters;
+        return this;
+    }
+
+    @Schema(description = "")
+
+    public List<EsotericLanguageInterpreter> getInterpreters() {
+        return interpreters;
+    }
+
+    public void setCompilers(List<EsotericLanguageInterpreter> interpreters) {
+        this.interpreters = interpreters;
+    }
+
 
     public EsotericLanguage description(String description) {
         this.description = description;
@@ -148,7 +162,7 @@ public class EsotericLanguage {
         }
         EsotericLanguage esotericLanguage = (EsotericLanguage) o;
         return Objects.equals(this.name, esotericLanguage.name) &&
-                Objects.equals(this.compiler, esotericLanguage.compiler) &&
+                Objects.equals(this.compilers, esotericLanguage.compilers) &&
                 Objects.equals(this.description, esotericLanguage.description) &&
                 Objects.equals(this.examplesOfPrograms, esotericLanguage.examplesOfPrograms) &&
                 Objects.equals(this.authorDetails, esotericLanguage.authorDetails);
@@ -156,14 +170,14 @@ public class EsotericLanguage {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, compiler, description, examplesOfPrograms, authorDetails);
+        return Objects.hash(name, compilers, description, examplesOfPrograms, authorDetails);
     }
 
     @Override
     public String toString() {
         return "class EsotericLanguage {\n" +
                 "    name: " + toIndentedString(name) + "\n" +
-                "    compiler: " + toIndentedString(compiler) + "\n" +
+                "    compiler: " + toIndentedString(compilers) + "\n" +
                 "    description: " + toIndentedString(description) + "\n" +
                 "    examplesOfPrograms: " + toIndentedString(examplesOfPrograms) + "\n" +
                 "    authorDetails: " + toIndentedString(authorDetails) + "\n" +

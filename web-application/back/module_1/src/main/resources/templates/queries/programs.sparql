@@ -4,9 +4,7 @@ PREFIX ela: <http://www.semanticweb.org/ela-ontology#>
 SELECT ?source_code ?description
 WHERE
 {
-	?program ela:ProgramCode ?source_code.
-	?program ela:ProgramDescription ?description.
-	?program ela:isExampleFor ?language.
-	?language ela:LanguageName ?language_name.
-	FILTER(REGEX(?language_name, ?language_name_to_match)).
+	?program ela:isExampleFor ?language_placeholder.
+    ?program ela:ProgramCode ?source_code.
+    ?program ela:ProgramDescription ?description.
 }

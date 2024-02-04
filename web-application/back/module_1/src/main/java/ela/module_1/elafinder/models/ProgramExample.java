@@ -14,7 +14,7 @@ public class ProgramExample {
     @JsonProperty("code")
     private String code;
 
-    @JsonProperty("Description")
+    @JsonProperty("description")
     private String description;
 
     @Override

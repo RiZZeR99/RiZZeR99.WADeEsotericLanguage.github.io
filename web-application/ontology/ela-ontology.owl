@@ -112,6 +112,26 @@
     
 
 
+    <!-- http://www.semanticweb.org/ela-ontology#CompilerDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ela-ontology#CompilerDescription">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ela-ontology#Compiler"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <owl:propertyDisjointWith rdf:resource="http://www.semanticweb.org/ela-ontology#InterpreterDescription"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ela-ontology#CompilerName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ela-ontology#CompilerName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ela-ontology#Compiler"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <owl:propertyDisjointWith rdf:resource="http://www.semanticweb.org/ela-ontology#InterpreterName"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.semanticweb.org/ela-ontology#DateOfCreation -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ela-ontology#DateOfCreation">
@@ -554,11 +574,12 @@ Clean up used cells.
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ela-ontology#GCC_AmongUs">
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Compiler"/>
-        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"></ela-ontology:ExternalLink>
-        <ela-ontology:InterpreterDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This compiler actually is an implementation for an interpreter.
+        <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Interpreter"/>
+        <ela-ontology:CompilerDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This compiler actually is an implementation for an interpreter.
 It uses the classic gcc compiler and a header file, where are defined the macros for the Among Us esoteric language.
 
-Header file: https://github.com/toc8730/amongus.cpp</ela-ontology:InterpreterDescription>
+Header file: https://github.com/toc8730/amongus.cpp</ela-ontology:CompilerDescription>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"></ela-ontology:ExternalLink>
     </owl:NamedIndividual>
     
 
@@ -1105,8 +1126,8 @@ The interpreter ignores any character except ! and #.</ela-ontology:InterpreterD
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ela-ontology#g++">
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Compiler"/>
-        <ela-ontology:InterpreterDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GNU C++ Compiler ( g++ ) is a compiler in Linux which is used to compile C++ programs. It compiles both files with extension .c and .cpp as C++ files.</ela-ontology:InterpreterDescription>
-        <ela-ontology:InterpreterName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g++</ela-ontology:InterpreterName>
+        <ela-ontology:CompilerDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GNU C++ Compiler ( g++ ) is a compiler in Linux which is used to compile C++ programs. It compiles both files with extension .c and .cpp as C++ files.</ela-ontology:CompilerDescription>
+        <ela-ontology:CompilerName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">g++</ela-ontology:CompilerName>
     </owl:NamedIndividual>
 </rdf:RDF>
 

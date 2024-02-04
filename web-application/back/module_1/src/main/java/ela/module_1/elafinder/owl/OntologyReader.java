@@ -1,9 +1,6 @@
 package ela.module_1.elafinder.owl;
 
-import ela.module_1.elafinder.models.AuthorDetails;
-import ela.module_1.elafinder.models.Criteria;
-import ela.module_1.elafinder.models.EsotericLanguage;
-import ela.module_1.elafinder.models.ProgramExample;
+import ela.module_1.elafinder.models.*;
 import ela.module_1.elafinder.utils.ResourceFileReader;
 import org.apache.jena.arq.querybuilder.SelectBuilder;
 import org.apache.jena.query.*;
@@ -70,6 +67,9 @@ public class OntologyReader {
 
     private EsotericLanguage buildEsotericLanguage(QuerySolution solution) {
         EsotericLanguage language = new EsotericLanguage();
+        String languageName = solution.get("language_name").toString();
+        String languageDescription = solution.get("language_description").toString();
+        EsotericLanguageCompiler compiler = getCompiler(languageName);
         return language;
     }
 
@@ -124,7 +124,14 @@ public class OntologyReader {
         return selectBuilder;
     }
 
-    private List<ProgramExample> getProgramExampleForLanguage(EsotericLanguage language) {
+    private EsotericLanguageCompiler getCompiler(String name) {
+        EsotericLanguageCompiler compiler = new EsotericLanguageCompiler();
+
+        return compiler;
+    }
+
+
+    private List<ProgramExample> getProgramExampleForLanguage(Resource language) {
         List<ProgramExample> programs = new ArrayList<>();
 // Load an RDF model from a file (replace "data.owl" with your RDF file)
         Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
@@ -137,7 +144,7 @@ public class OntologyReader {
         ParameterizedSparqlString parameterizedQuery = new ParameterizedSparqlString(queryString);
 
         // Set the parameter value
-        parameterizedQuery.setLiteral("language_name_to_match", language.getName());
+        parameterizedQuery.setLiteral("language_placeholder", "ela:" + language.getLocalName());
 
         // Execute the parameterized query
         try (QueryExecution qexec = QueryExecutionFactory.create(parameterizedQuery.asQuery(), model)) {

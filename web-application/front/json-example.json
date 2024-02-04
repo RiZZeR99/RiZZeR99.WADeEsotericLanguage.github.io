@@ -1,0 +1,54 @@
+// exemplu Criteria
+{
+	"complexity": {
+        "difficulty": "easy",
+        "required": false
+    },
+    "release_year": {
+        "required": true,
+        "year": 2020
+    },
+    "author_details": 
+    {
+        "required": true,
+        "author_details":
+        {
+            "name": "string",
+            "nationality": "string",
+            "birthDate": "dateTime"
+        }
+
+    },
+    "with_program_examples": 
+    {
+        "required" : true,
+        "with_examples_required": true
+    }
+}
+
+//exemplu EsotericLanguage
+{
+        "name":"string",
+        
+        "author_details":
+        {
+            "name": "string",
+            "nationality": "string",
+            "birthDate": "dateTime"
+        }
+
+        "compilers":[
+            {"name":"string","description":"string"}
+        ],
+        "interpreters": [
+            {"name":"string","description":"string"}
+        ],
+
+        "description": "string",
+        "program_examples":[
+                {
+                    "code":"string",
+                    "description": "description"
+                }
+        ]
+}

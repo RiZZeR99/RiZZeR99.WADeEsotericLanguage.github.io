@@ -6,20 +6,15 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.Objects;
 
-/**
- * EsotericLanguageCompiler
- */
 @Validated
-
-
-public class EsotericLanguageCompiler {
+public class EsotericLanguageInterpreter {
     @JsonProperty("name")
     private String name = null;
 
     @JsonProperty("description")
     private String description = null;
 
-    public EsotericLanguageCompiler name(String name) {
+    public EsotericLanguageInterpreter name(String name) {
         this.name = name;
         return this;
     }
@@ -38,6 +33,7 @@ public class EsotericLanguageCompiler {
     public void setName(String name) {
         this.name = name;
     }
+
 
     @Schema(description = "")
 
@@ -58,7 +54,7 @@ public class EsotericLanguageCompiler {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EsotericLanguageCompiler esotericLanguageCompiler = (EsotericLanguageCompiler) o;
+        EsotericLanguageInterpreter esotericLanguageCompiler = (EsotericLanguageInterpreter) o;
         return Objects.equals(this.name, esotericLanguageCompiler.name) &&
                 Objects.equals(this.description, esotericLanguageCompiler.description);
     }
@@ -71,7 +67,7 @@ public class EsotericLanguageCompiler {
     @Override
     public String toString() {
 
-        return "class EsotericLanguageCompiler {\n" +
+        return "class EsotericLanguageInterpreter {\n" +
                 "    name: " + toIndentedString(name) + "\n" +
                 "    description: " + toIndentedString(description) + "\n" +
                 "}";
