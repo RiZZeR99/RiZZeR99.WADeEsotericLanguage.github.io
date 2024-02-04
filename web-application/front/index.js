@@ -159,7 +159,7 @@ function sendData(criteria) {
     })
     .then(response => response.text())
     .then(data => {
-        displayLanguageInfo(data)
+        displayLanguages(data)
     })
     .catch(error => {
         console.error('Error:', error);
@@ -173,11 +173,11 @@ function updateUI(criteria) {
     document.getElementById('with_examples').value = mapBooleanValueToYeNo(criteria.with_program_examples.with_examples_required);
 }
 
-function displayLanguageInfo(data) {
+function displayLanguages(data) {
     const responseContainer = document.getElementById('response-container');
     responseContainer.innerHTML = ''; // Clear previous content
 
-    languages = JSON.parse(data)
+    const languages = JSON.parse(data);
 
     languages.forEach(language => {
         const languageDiv = document.createElement('div');
@@ -187,60 +187,92 @@ function displayLanguageInfo(data) {
         nameHeader.textContent = language.name;
         languageDiv.appendChild(nameHeader);
 
-        const descriptionParagraph = document.createElement('p');
-        descriptionParagraph.textContent = language.description;
-        languageDiv.appendChild(descriptionParagraph);
-
-        const externalLinkParagraph = document.createElement('p');
-        externalLinkParagraph.textContent = language.externalLink;
-        languageDiv.appendChild(externalLinkParagraph);
-
-        if (language.compilers && language.compilers.length > 0) {
-            const compilersHeader = document.createElement('h3');
-            compilersHeader.textContent = 'Compilers';
-            languageDiv.appendChild(compilersHeader);
-
-            const compilersList = document.createElement('ul');
-            language.compilers.forEach(compiler => {
-                const compilerItem = document.createElement('li');
-                compilerItem.textContent = `${compiler.name}: ${compiler.description}`;
-                compilersList.appendChild(compilerItem);
-            });
-            languageDiv.appendChild(compilersList);
-        }
-
-        if (language.program_examples && language.program_examples.length > 0) {
-            const examplesHeader = document.createElement('h3');
-            examplesHeader.textContent = 'Program Examples';
-            languageDiv.appendChild(examplesHeader);
-
-            const examplesList = document.createElement('ul');
-            language.program_examples.forEach(example => {
-                const exampleItem = document.createElement('li');
-                exampleItem.innerHTML = `<strong>Code:</strong> ${example.code}<br><strong>Description:</strong> ${example.description}`;
-                examplesList.appendChild(exampleItem);
-            });
-            languageDiv.appendChild(examplesList);
-        }
-
-        if (language.author_details) {
-            const authorDetailsHeader = document.createElement('h3');
-            authorDetailsHeader.textContent = 'Author Details';
-            languageDiv.appendChild(authorDetailsHeader);
-
-            const authorDetailsParagraph = document.createElement('p');
-            if (language.author_details.name) {
-                authorDetailsParagraph.innerHTML += `<strong>Name:</strong> ${language.author_details.name}<br>`;
-            }
-            if (language.author_details.nationality) {
-                authorDetailsParagraph.innerHTML += `<strong>Nationality:</strong> ${language.author_details.nationality}<br>`;
-            }
-            if (language.author_details.birthDate) {
-                authorDetailsParagraph.innerHTML += `<strong>Birth Date:</strong> ${language.author_details.birthDate}<br>`;
-            }
-            languageDiv.appendChild(authorDetailsParagraph);
-        }
+        const addButton = document.createElement('button');
+        addButton.textContent = '+';
+        addButton.addEventListener('click', () => getSpecificLanguageInfo(language, languageDiv));
+        languageDiv.appendChild(addButton);
 
         responseContainer.appendChild(languageDiv);
     });
+}
+
+function getSpecificLanguageInfo(language, languageDiv) {
+    fetch('http://localhost:8080/getByName' + '/' + extractNameFromUri(language.resource_uri), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.text())
+    .then(data => {
+        showDetails(data, languageDiv)
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function extractNameFromUri(uri) {
+    const index = uri.lastIndexOf('#');
+    if (index !== -1) {
+        return uri.substring(index + 1);
+    }
+    return uri; // Return the original URI if no fragment is found
+}
+
+function showDetails(data, languageDiv) {
+    language = JSON.parse(data);
+    const descriptionParagraph = document.createElement('p');
+    descriptionParagraph.textContent = language.description;
+    languageDiv.appendChild(descriptionParagraph);
+
+    const externalLinkParagraph = document.createElement('p');
+    externalLinkParagraph.textContent = language.externalLink;
+    languageDiv.appendChild(externalLinkParagraph);
+
+    if (language.compilers && language.compilers.length > 0) {
+        const compilersHeader = document.createElement('h3');
+        compilersHeader.textContent = 'Compilers';
+        languageDiv.appendChild(compilersHeader);
+
+        const compilersList = document.createElement('ul');
+        language.compilers.forEach(compiler => {
+            const compilerItem = document.createElement('li');
+            compilerItem.textContent = `${compiler.name}: ${compiler.description}`;
+            compilersList.appendChild(compilerItem);
+        });
+        languageDiv.appendChild(compilersList);
+    }
+
+    if (language.program_examples && language.program_examples.length > 0) {
+        const examplesHeader = document.createElement('h3');
+        examplesHeader.textContent = 'Program Examples';
+        languageDiv.appendChild(examplesHeader);
+
+        const examplesList = document.createElement('ul');
+        language.program_examples.forEach(example => {
+            const exampleItem = document.createElement('li');
+            exampleItem.innerHTML = `<strong>Code:</strong> ${example.code}<br><strong>Description:</strong> ${example.description}`;
+            examplesList.appendChild(exampleItem);
+        });
+        languageDiv.appendChild(examplesList);
+    }
+
+    if (language.author_details) {
+        const authorDetailsHeader = document.createElement('h3');
+        authorDetailsHeader.textContent = 'Author Details';
+        languageDiv.appendChild(authorDetailsHeader);
+
+        const authorDetailsParagraph = document.createElement('p');
+        if (language.author_details.name) {
+            authorDetailsParagraph.innerHTML += `<strong>Name:</strong> ${language.author_details.name}<br>`;
+        }
+        if (language.author_details.nationality) {
+            authorDetailsParagraph.innerHTML += `<strong>Nationality:</strong> ${language.author_details.nationality}<br>`;
+        }
+        if (language.author_details.birthDate) {
+            authorDetailsParagraph.innerHTML += `<strong>Birth Date:</strong> ${language.author_details.birthDate}<br>`;
+        }
+        languageDiv.appendChild(authorDetailsParagraph);
+    }
 }
