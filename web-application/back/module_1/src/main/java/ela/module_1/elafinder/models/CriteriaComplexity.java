@@ -105,7 +105,7 @@ public class CriteriaComplexity {
     public enum DifficultyEnum {
         EASY("easy"),
 
-        MEDIUM("medium"),
+        MEDIUM("moderate"),
 
         HARD("hard"),
 

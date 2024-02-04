@@ -32,10 +32,30 @@ public class EsotericLanguage {
     @JsonProperty("author_details")
     private AuthorDetails authorDetails = null;
 
+    @JsonProperty("complexity")
+    private CriteriaComplexity.DifficultyEnum difficulty = null;
+
+
     public EsotericLanguage name(String name) {
         this.name = name;
         return this;
     }
+
+    /**
+     * Get difficulty
+     *
+     * @return difficulty
+     **/
+    @Schema(example = "medium", description = "")
+
+    public CriteriaComplexity.DifficultyEnum getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(CriteriaComplexity.DifficultyEnum difficulty) {
+        this.difficulty = difficulty;
+    }
+
 
     /**
      * Get name
@@ -63,8 +83,8 @@ public class EsotericLanguage {
         return compilers;
     }
 
-    public void setInterpreters(List<EsotericLanguageCompiler> compilers) {
-        this.compilers = compilers;
+    public void setInterpreters(List<EsotericLanguageInterpreter> interpreters) {
+        this.interpreters = interpreters;
     }
 
 
@@ -79,8 +99,8 @@ public class EsotericLanguage {
         return interpreters;
     }
 
-    public void setCompilers(List<EsotericLanguageInterpreter> interpreters) {
-        this.interpreters = interpreters;
+    public void setCompilers(List<EsotericLanguageCompiler> compilers) {
+        this.compilers = compilers;
     }
 
 

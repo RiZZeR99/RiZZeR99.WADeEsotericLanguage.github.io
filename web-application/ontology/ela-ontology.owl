@@ -429,8 +429,8 @@ ORANGE	Increment accumulator 1 10 times.</ela-ontology:LanguageDescription>
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ela-ontology#Areallycoolusername">
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Person"/>
         <ela-ontology:created rdf:resource="http://www.semanticweb.org/ela-ontology#NopeFullStop"/>
+        <ela-ontology:PersonDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Areallycoolusername has the most cool username in the history of cool usernames. You can&apos;t get cooler than the level of cool that Areallycoolusername has. Got it? Cool. Also the creator of Brain:D, GreeeeeeeeenText, Ummm..., Dunka!, DukkTap, and many others. You can find some of the interpreters for my languages on github. You can also see my other languages at the talk page in User: Jussef Swissen, my account for serious ideas. I&apos;ve also created the Arch Esoteric data structure.</ela-ontology:PersonDescription>
         <ela-ontology:PersonName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Areallycoolusername</ela-ontology:PersonName>
-        <ela-ontology:PersonName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Areallycoolusername has the most cool username in the history of cool usernames. You can&apos;t get cooler than the level of cool that Areallycoolusername has. Got it? Cool. Also the creator of Brain:D, GreeeeeeeeenText, Ummm..., Dunka!, DukkTap, and many others. You can find some of the interpreters for my languages on github. You can also see my other languages at the talk page in User: Jussef Swissen, my account for serious ideas. I&apos;ve also created the Arch Esoteric data structure.</ela-ontology:PersonName>
     </owl:NamedIndividual>
     
 
@@ -894,6 +894,7 @@ People will find it a little challenging to understand the syntax and how it wor
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ela-ontology#NopeFullStop">
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Language"/>
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#NoChanceDifficulty"/>
+        <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#Areallycoolusername"/>
         <ela-ontology:LanguageDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nope. is an esoteric programming language made by Areallycoolusername. You can code anything you would like, but the language will neither compile nor process it. This unfortunately means that Nope. is not Turing-complete. You could still create a quine and infinite number of self interpreters.</ela-ontology:LanguageDescription>
         <ela-ontology:LanguageName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nope.</ela-ontology:LanguageName>
     </owl:NamedIndividual>
@@ -971,8 +972,8 @@ In 1992 he created the Aminet Archive, a huge archive of freeware, shareware and
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Person"/>
         <ela-ontology:created rdf:resource="http://www.semanticweb.org/ela-ontology#Among_Us"/>
         <ela-ontology:isCompiledWith rdf:resource="http://www.semanticweb.org/ela-ontology#GCC_AmongUs"/>
-        <ela-ontology:PersonName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User:Zero player rodent</ela-ontology:PersonName>
-        <ela-ontology:PersonName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">User:Zero player rodent is the author of some esoteric programming languages. They have a list of languages that like and do not like.</ela-ontology:PersonName>
+        <ela-ontology:PersonDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zero player rodent is the author of some esoteric programming languages. They have a list of languages that like and do not like.</ela-ontology:PersonDescription>
+        <ela-ontology:PersonName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zero player rodent</ela-ontology:PersonName>
     </owl:NamedIndividual>
     
 
@@ -1067,6 +1068,7 @@ The interpreter ignores any character except ! and #.</ela-ontology:InterpreterD
     <!-- http://www.semanticweb.org/ela-ontology#CatProgram_!!Fuck -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ela-ontology#CatProgram_!!Fuck">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#CatProgram"/>
         <ela-ontology:isExampleFor rdf:resource="http://www.semanticweb.org/ela-ontology#!!Fuck"/>
         <ela-ontology:ProgramCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">!!!!!!!!!#!!!!!!!!!!#!!!!!!!!!!!#!!!!!!!!!#!!!!!!!!!!#!!!!!!!!!!!!#</ela-ontology:ProgramCode>
         <ela-ontology:ProgramDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An infinitely repeating cat program is implemented in the following:</ela-ontology:ProgramDescription>
