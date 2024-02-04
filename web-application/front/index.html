@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Criteria Selector</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Criteria Selector</h1>
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="moderate">Moderate</option>
+            <option value="hard">Hard</option>
+            <option value="no_chance">No Chance</option>
+        </select>
+
+        <label for="release_year">Release Year:</label>
+        <select id="release_year"></select>
+
+        <label for="author_nationality">Author Nationality:</label>
+        <select id="author_nationality"></select>
+
+        <button onclick="submitCriteria()">Submit</button>
+        <button onclick="randomizeCriteria()">Randomize</button>
+
+        <textarea id="response" readonly></textarea>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

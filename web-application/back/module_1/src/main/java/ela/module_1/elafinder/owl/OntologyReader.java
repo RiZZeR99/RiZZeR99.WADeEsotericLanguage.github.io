@@ -41,8 +41,8 @@ public class OntologyReader {
     public List<EsotericLanguage> getEsotericLanguagesByCriteria(Criteria criteria) {
         List<EsotericLanguage> languages = new ArrayList<>();
         // Load an RDF model from a file (replace "data.ttl" with your RDF file)
-        Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
-
+        //Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
+        Model model = FileManager.getInternal().loadModelInternal("D:\\UAIC\\RiZZeR99.github.io\\web-application\\ontology\\ela-ontology.owl");
         SelectBuilder selectBuilder = buildSelectForLanguage(criteria);
 
         // Execute the parameterized query
@@ -90,9 +90,11 @@ public class OntologyReader {
         }
 
         if (criteria.getAuthorDetails() != null && criteria.getAuthorDetails().isRequired()) {
-            selectBuilder.addWhere("?language", "ela:isCreatedBy", "?author")
-                    .addWhere("?author", "ela:PersonName", "?author_name")
-                    .addFilter(String.format("(\"%s\" in str(?author_name))", criteria.getAuthorDetails().getData().getName()));
+            if(criteria.getAuthorDetails().validAuthorName()) {
+                selectBuilder.addWhere("?language", "ela:isCreatedBy", "?author")
+                        .addWhere("?author", "ela:PersonName", "?author_name")
+                        .addFilter(String.format("(\"%s\" in str(?author_name))", criteria.getAuthorDetails().getData().getName()));
+            }
         } else {
             selectBuilder.addOptional("?language", "ela:isCreatedBy", "?author");
         }
