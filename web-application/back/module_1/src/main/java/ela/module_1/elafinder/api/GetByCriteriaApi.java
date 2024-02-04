@@ -7,6 +7,7 @@ package ela.module_1.elafinder.api;
 
 import ela.module_1.elafinder.models.Criteria;
 import ela.module_1.elafinder.models.EsotericLanguage;
+import ela.module_1.elafinder.models.EsotericLanguageSummary;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -29,7 +30,7 @@ public interface GetByCriteriaApi {
 
     @Operation(summary = "Get a list of esoteric languages based on the criteria", description = "Based on a list of completed criteria, the application will return a list of matched esoteric languages", tags = {"ela"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EsotericLanguage.class)))),
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EsotericLanguageSummary.class)))),
 
             @ApiResponse(responseCode = "404", description = "No esoteric language found based on the criteria"),
 
@@ -38,7 +39,7 @@ public interface GetByCriteriaApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<List<EsotericLanguage>> getByCriteria(@Parameter(in = ParameterIn.DEFAULT, description = "Entity with criteria completed by the user", required = true, schema = @Schema()) @RequestBody Criteria body
+    ResponseEntity<List<EsotericLanguageSummary>> getByCriteria(@Parameter(in = ParameterIn.DEFAULT, description = "Entity with criteria completed by the user", required = true, schema = @Schema()) @RequestBody Criteria body
     );
 
 }

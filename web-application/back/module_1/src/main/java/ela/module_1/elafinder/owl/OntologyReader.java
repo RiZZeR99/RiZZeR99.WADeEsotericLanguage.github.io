@@ -8,103 +8,71 @@ import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.util.FileManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class OntologyReader {
-    private static final String ELA_ONTOLOGY_OWL = "ela-ontology.owl";
-    private final Properties prefixes;
-    private final String RDF_PREDIX;
-    private final String OWL_PREFIX;
-    private final String RDFS_PREFIX;
-    private final String XSD_PREFIX;
-    private final String ELA_PREFIX;
+    private static final Logger log = LoggerFactory.getLogger(OntologyReader.class);
+    private static final String ELA_ONTOLOGY_OWL = "ontology/ela-ontology.owl";
 
     public OntologyReader() {
-        prefixes = new Properties();
-        try {
-            prefixes.load(ResourceFileReader.getFileInputStreamReader("static/prefixes.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        RDF_PREDIX = (String) prefixes.get("rdf");
-        RDFS_PREFIX = (String) prefixes.get("rdfs");
-        OWL_PREFIX = (String) prefixes.get("owl");
-        XSD_PREFIX = (String) prefixes.get("xsd");
-        ELA_PREFIX = (String) prefixes.get("ela");
     }
 
-    public List<EsotericLanguage> getEsotericLanguagesByCriteria(Criteria criteria) {
-        List<EsotericLanguage> languages = new ArrayList<>();
-        // Load an RDF model from a file (replace "data.ttl" with your RDF file)
-        Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
-        SelectBuilder selectBuilder = buildSelectForLanguage(criteria);
+    public List<EsotericLanguageSummary> getEsotericLanguageSummariesByCriteria(Criteria criteria) {
+        List<EsotericLanguageSummary> languages = new ArrayList<>();
+// Load an RDF model from a file (replace "data.ttl" with your RDF file)
+        Model model = FileManager.getInternal().loadModelInternal(ELA_ONTOLOGY_OWL);
+        SelectBuilder selectBuilder = new SelectSparqlLanguageSummaryBuilder().buildSelectForLanguages(criteria);
 
         // Execute the parameterized query
-        System.out.println(selectBuilder);
+        log.info(selectBuilder.toString());
         try (QueryExecution queryExecution = QueryExecutionFactory.create(selectBuilder.build(), model)) {
             ResultSet results = queryExecution.execSelect();
 
             // Process the results
             while (results.hasNext()) {
                 QuerySolution solution = results.nextSolution();
-                languages.add((buildEsotericLanguage(model, solution)));
+                languages.add((buildEsotericLanguageSummary(solution)));
             }
         }
+
         return languages;
     }
 
-    private SelectBuilder buildSelectForLanguage(Criteria criteria) {
-        SelectBuilder selectBuilder = new SelectBuilder()
-                .setDistinct(true)
-                .addPrefix("ela", ELA_PREFIX)
-                .addPrefix("rdf", RDF_PREDIX)
-                .addPrefix("rdfs", RDFS_PREFIX)
-                .addPrefix("owl", OWL_PREFIX)
-                .addPrefix("xsd", XSD_PREFIX)
-                .addVar("?language")
-                .addVar("?author")
-                .addVar("?date")
-                .addVar("?language_description")
-                .addVar("?language_name")
-                .addVar("?diff_alias")
-                .addWhere("?language", "a", "ela:Language")
-                .addWhere("?language", "ela:hasDifficulty", "?language_difficulty")
-                .addWhere("?language_difficulty", "ela:DifficultyAlias", "?diff_alias")
-                .addOptional("?language", "ela:LanguageName", "?language_name")
-                .addOptional("?language", "ela:LanguageDescription", "?language_description");
+    private EsotericLanguageSummary buildEsotericLanguageSummary(QuerySolution solution) {
+        EsotericLanguageSummary summary = new EsotericLanguageSummary();
 
-        if (criteria.getComplexity() != null && criteria.getComplexity().isRequired()) {
-            selectBuilder.addFilter(String.format("(str(?diff_alias) = \"%s\")", criteria.getComplexity().getDifficulty()));
-        }
+        Literal name = solution.getLiteral("language_name");
+        String resourceLink = solution.getResource("language").getURI();
 
-        if (criteria.getReleaseYear() != null && criteria.getReleaseYear().isRequired()) {
-            selectBuilder.addWhere("?language", "ela:DateOfCreation", "?date")
-                    .addFilter(String.format("(year(?date) = %s)", criteria.getReleaseYear().getYear()));
-        } else {
-            selectBuilder.addOptional("?language", "ela:DateOfCreation", "?date");
-        }
+        summary.setName(name.getLexicalForm());
+        summary.setResourceUri(resourceLink);
 
-        if (criteria.getAuthorDetails() != null && criteria.getAuthorDetails().isRequired()) {
-            if (criteria.getAuthorDetails().validAuthorName()) {
-                selectBuilder.addWhere("?language", "ela:isCreatedBy", "?author")
-                        .addWhere("?author", "ela:PersonName", "?author_name")
-                        .addFilter(String.format("(\"%s\" in str(?author_name))", criteria.getAuthorDetails().getData().getName()));
+        return summary;
+    }
+
+    public EsotericLanguage getEsotericLanguageByName(String name) {
+        // Load an RDF model from a file (replace "data.ttl" with your RDF file)
+        Model model = FileManager.getInternal().loadModelInternal(ELA_ONTOLOGY_OWL);
+        SelectBuilder selectBuilder = new SelectSparqlLanguageByName().buildSelectForLanguageByName(name);
+
+        // Execute the parameterized query
+        log.info(selectBuilder.toString());
+        try (QueryExecution queryExecution = QueryExecutionFactory.create(selectBuilder.build(), model)) {
+            ResultSet results = queryExecution.execSelect();
+
+            // Process the results
+            if (results.hasNext()) {
+                QuerySolution solution = results.nextSolution();
+                return buildEsotericLanguage(model, solution);
             }
-        } else {
-            selectBuilder.addOptional("?language", "ela:isCreatedBy", "?author");
         }
-
-        if (criteria.getWithExamples() != null && criteria.getWithExamples().isRequired() && criteria.getWithExamples().isWithExamplesRequired()) {
-            selectBuilder.addWhere("?program", "ela:isExampleFor", "?language");
-        }
-
-        return selectBuilder;
+        return null;
     }
 
     private EsotericLanguage buildEsotericLanguage(Model model, QuerySolution solution) {
@@ -112,6 +80,7 @@ public class OntologyReader {
 
         Literal name = solution.getLiteral("language_name");
         Literal description = solution.getLiteral("language_description");
+        Literal externalLink = solution.getLiteral("external_link");
         Resource language = solution.getResource("language");
 
         List<EsotericLanguageCompiler> compilers = getCompilers(model, language);
@@ -135,6 +104,8 @@ public class OntologyReader {
         esotericLanguage.setExamplesOfPrograms(programs);
 
         esotericLanguage.setDifficulty(difficulty);
+
+        esotericLanguage.setExternalLink(URI.create(externalLink.getString()));
 
         return esotericLanguage;
     }
@@ -284,5 +255,26 @@ public class OntologyReader {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Deprecated
+    public List<EsotericLanguage> getEsotericLanguagesByCriteria(Criteria criteria) {
+        List<EsotericLanguage> languages = new ArrayList<>();
+        // Load an RDF model from a file (replace "data.ttl" with your RDF file)
+        Model model = FileManager.getInternal().loadModelInternal(ELA_ONTOLOGY_OWL);
+        SelectBuilder selectBuilder = new SelectSparqlLanguageBuilder().buildSelectForLanguages(criteria);
+
+        // Execute the parameterized query
+        log.info(selectBuilder.toString());
+        try (QueryExecution queryExecution = QueryExecutionFactory.create(selectBuilder.build(), model)) {
+            ResultSet results = queryExecution.execSelect();
+
+            // Process the results
+            while (results.hasNext()) {
+                QuerySolution solution = results.nextSolution();
+                languages.add((buildEsotericLanguage(model, solution)));
+            }
+        }
+        return languages;
     }
 }

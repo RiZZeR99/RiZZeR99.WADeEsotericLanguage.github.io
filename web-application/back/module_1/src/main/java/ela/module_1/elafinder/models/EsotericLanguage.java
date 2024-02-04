@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.validation.annotation.Validated;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +35,8 @@ public class EsotericLanguage {
 
     @JsonProperty("complexity")
     private CriteriaComplexity.DifficultyEnum difficulty = null;
+    @JsonProperty("external_link")
+    private URI externalLink = null;
 
 
     public EsotericLanguage name(String name) {
@@ -70,6 +73,15 @@ public class EsotericLanguage {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public URI getExternalLink() {
+        return externalLink;
+    }
+
+    public void setExternalLink(URI externalLink) {
+        this.externalLink = externalLink;
     }
 
     public EsotericLanguage compiler(List<EsotericLanguageCompiler> compilers) {
@@ -185,7 +197,8 @@ public class EsotericLanguage {
                 Objects.equals(this.compilers, esotericLanguage.compilers) &&
                 Objects.equals(this.description, esotericLanguage.description) &&
                 Objects.equals(this.examplesOfPrograms, esotericLanguage.examplesOfPrograms) &&
-                Objects.equals(this.authorDetails, esotericLanguage.authorDetails);
+                Objects.equals(this.authorDetails, esotericLanguage.authorDetails) &&
+                Objects.equals(this.externalLink, esotericLanguage.externalLink);
     }
 
     @Override
@@ -201,6 +214,7 @@ public class EsotericLanguage {
                 "    description: " + toIndentedString(description) + "\n" +
                 "    examplesOfPrograms: " + toIndentedString(examplesOfPrograms) + "\n" +
                 "    authorDetails: " + toIndentedString(authorDetails) + "\n" +
+                "    external link: " + toIndentedString(externalLink) + "\n" +
                 "}";
     }
 

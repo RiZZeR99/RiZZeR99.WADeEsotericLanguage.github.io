@@ -410,6 +410,7 @@
         <ela-ontology:isCompiledWith rdf:resource="http://www.semanticweb.org/ela-ontology#GCC_AmongUs"/>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#Zero"/>
         <ela-ontology:isInterpretedBy rdf:resource="http://www.semanticweb.org/ela-ontology#GCC_AmongUs"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/Among_Us</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>Among Us is an esoteric programming language created by User:Zero player rodent. It is based on the popular game known as Among Us. The code is meant to look like conversations that are common in-game. The programs mostly consist of colours followed by the word &quot;SUS&quot;. &quot;SUS&quot; executes the command associated with the colour. The words &quot;WHO&quot; and &quot;WHERE&quot; are used for loops. The language uses 2 accumulators and a stack for memory. Among Us can store infinitely large numbers, but the &quot;WHO&quot; and &quot;WHERE&quot; commands will treat a value as if it resets back to 0 after it goes above 255. The &quot;WHO&quot; and &quot;WHERE&quot; commands also treat a value as if it is set to 255 after going lower than 0.
 
 Command	Outcome
@@ -759,6 +760,7 @@ WHERE?</ela-ontology:ProgramCode>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#Hakerh400"/>
         <ela-ontology:isInterpretedBy rdf:resource="http://www.semanticweb.org/ela-ontology#Hakerh400Esolang"/>
         <ela-ontology:DateOfCreation rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-01T00:00:00</ela-ontology:DateOfCreation>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/Hello_today_I_am_a_unicorn</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>Hello today I am a unicorn is a Turing-complete programming language that has only two variables.
 
 Overview
@@ -822,6 +824,7 @@ Note: all instructions except this simply increment instruction pointer.</ela-on
         <ela-ontology:isInterpretedBy rdf:resource="http://www.semanticweb.org/ela-ontology#MalbolgeCInterpreter"/>
         <ela-ontology:isInterpretedBy rdf:resource="http://www.semanticweb.org/ela-ontology#MalbolgeOnlineInterpreter"/>
         <ela-ontology:DateOfCreation rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1998-01-01T20:20:00</ela-ontology:DateOfCreation>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/Malbolge</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>Malbolge, invented by Ben Olmstead in 1998, is an esoteric programming language designed to be as difficult to program in as possible. The first &quot;Hello, world!&quot; program written in it was produced by a Lisp program using a local beam search of the space of all possible programs. More practical programming methods have been found later. It is modelled as a virtual machine based on ternary digits.
 
 The language is named after Malebolge [sic], the eighth level of hell in Dante&apos;s Inferno, which is reserved for perpetrators of fraud. The actual spelling Malbolge is also used for the sixth hell in the Dungeons and Dragons roleplaying game.</ela-ontology:LanguageDescription>
@@ -910,6 +913,7 @@ People will find it a little challenging to understand the syntax and how it wor
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Language"/>
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#NoChanceDifficulty"/>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#Areallycoolusername"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/Nope.</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>Nope. is an esoteric programming language made by Areallycoolusername. You can code anything you would like, but the language will neither compile nor process it. This unfortunately means that Nope. is not Turing-complete. You could still create a quine and infinite number of self interpreters.</ela-ontology:LanguageDescription>
         <ela-ontology:LanguageName>Nope.</ela-ontology:LanguageName>
     </owl:NamedIndividual>
@@ -946,6 +950,7 @@ People will find it a little challenging to understand the syntax and how it wor
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#HardDifficulty"/>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#None1"/>
         <ela-ontology:isInterpretedBy rdf:resource="http://www.semanticweb.org/ela-ontology#TEI"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/This_esolang_is_not_a_push-down_automata</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>This esolang is not a push-down automata (or TEISNPDA or simple TEI) is, unlike its name, a push-down automata. It is invented by User:None1.
 
 It uses only a stack that can contain nonnegative numbers of any size.
@@ -1001,6 +1006,7 @@ In 1992 he created the Aminet Archive, a huge archive of freeware, shareware and
         <ela-ontology:isCompiledWith rdf:resource="http://www.semanticweb.org/ela-ontology#BrainFExec"/>
         <ela-ontology:isCompiledWith rdf:resource="http://www.semanticweb.org/ela-ontology#BrainForked"/>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#Urban_Müller"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/Brainfuck</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>Brainfuck is one of the most famous esoteric programming languages, and has inspired the creation of a host of other languages. Due to the fact that the last half of its name is often considered one of the most offensive words in the English language, it is sometimes referred to as &quot;brainf***&quot;, &quot;brainf*ck&quot;, &quot;brainfsck&quot;, &quot;b****fuck&quot; (as a joke), &quot;brainf**k&quot;, &quot;branflakes&quot;, &quot;brainoof&quot;, &quot;brainfrick&quot;, &quot;bf&quot;, etc. This can make it a bit difficult to search for information regarding brainfuck on the web, as the proper name might not be used at all in some articles.
 
 Brainfuck operates on an array of memory cells, each initially set to zero. (In the original implementation, the array was 30,000 cells long, but this may not be part of the language specification; different sizes for the array length and cell size give different variants of the language). There is a pointer, initially pointing to the first memory cell. The commands are:
@@ -1026,6 +1032,7 @@ All characters other than &gt;&lt;+-.,[] should be considered comments and ignor
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Language"/>
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#EasyDifficulty"/>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#Mihai_Popa"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/!English</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>!English is a esolang made by Mihai Popa. It uses the English syntax, so any English person will understand it.</ela-ontology:LanguageDescription>
         <ela-ontology:LanguageName>!English</ela-ontology:LanguageName>
     </owl:NamedIndividual>
@@ -1039,6 +1046,7 @@ All characters other than &gt;&lt;+-.,[] should be considered comments and ignor
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#HardDifficulty"/>
         <ela-ontology:isCompiledWith rdf:resource="http://www.semanticweb.org/ela-ontology#BrainForked"/>
         <ela-ontology:isInterpretedBy rdf:resource="http://www.semanticweb.org/ela-ontology#!!Fuck_Python_Interpreter"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/!!Fuck</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>!!Fuck is a clone of Brainfuck that uses varying amounts of !&apos;s to indicate commands. It is a member of the TrivialBrainfuckSubstitution family of programming languages.
 
 Brainfuck	!!Fuck
@@ -1072,6 +1080,7 @@ The interpreter ignores any character except ! and #.</ela-ontology:InterpreterD
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Language"/>
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#ModerateDifficulty"/>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#User:Mipinggfxgbtftybfhfyhfn"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/((%3F)%3F)%3F</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>In ((?)?)? there are three loctaions to store data:
 
 - The bit (a bit used for all the operations are made)
@@ -1100,6 +1109,8 @@ All the data is stored as a bit.</ela-ontology:LanguageDescription>
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ela-ontology#(_͡°_͜ʖ_͡°)fuck">
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Language"/>
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#NoChanceDifficulty"/>
+        <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#(_͡°_͜ʖ_͡°)"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/(_%CD%A1%C2%B0_%CD%9C%CA%96_%CD%A1%C2%B0)fuck</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>( ͡° ͜ʖ ͡°)fuck is a derivate of Brainfuck+3 but with lenny faces.
 
 Instruction	Lenny-counterpart
@@ -1205,6 +1216,7 @@ x	ಠ_ಠ
         <rdf:type rdf:resource="http://www.semanticweb.org/ela-ontology#Language"/>
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#HardDifficulty"/>
         <ela-ontology:isCreatedBy rdf:resource="http://www.semanticweb.org/ela-ontology#User:Stysan"/>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/512</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>512 is an esoteric programming language created by User:Stysan. Challenge was to try to create programming language in 512 bytes. Its syntax is inspired by Batch syntax. 512 scripts can be stored in any extension, but originally 512 files were stored in .512s.
 
 There are 4 variables: 1, 2, a and m.
@@ -1251,6 +1263,7 @@ for i in p:
         <ela-ontology:hasDifficulty rdf:resource="http://www.semanticweb.org/ela-ontology#EasyDifficulty"/>
         <ela-ontology:isCompiledWith rdf:resource="http://www.semanticweb.org/ela-ontology#g++"/>
         <ela-ontology:DateOfCreation rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1993-01-01T00:00:00</ela-ontology:DateOfCreation>
+        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://esolangs.org/wiki/C%2B%2B%2B</ela-ontology:ExternalLink>
         <ela-ontology:LanguageDescription>C+++ is basically C++ but with less abbreviations &amp; it has new syntax added to make things slightly easier.</ela-ontology:LanguageDescription>
         <ela-ontology:LanguageName>C+++</ela-ontology:LanguageName>
     </owl:NamedIndividual>
