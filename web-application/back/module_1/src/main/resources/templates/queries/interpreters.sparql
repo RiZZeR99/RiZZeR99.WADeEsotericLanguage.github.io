@@ -3,10 +3,14 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX ela: <http://www.semanticweb.org/ela-ontology#>
-SELECT ?interpreter_name ?interpreter_description
+SELECT ?interpreter_name ?interpreter_description ?link
 WHERE
 {
     ?language_placeholder ela:isInterpretedBy ?interpreter.
     ?interpreter ela:InterpreterName ?interpreter_name.
-    ?interpreter ela:InterpreterDescription ?interpreter_description
+    ?interpreter ela:InterpreterDescription ?interpreter_description.
+    OPTIONAL
+    {
+        ?interpreter ela:ExternalLink ?link.
+    }
 }

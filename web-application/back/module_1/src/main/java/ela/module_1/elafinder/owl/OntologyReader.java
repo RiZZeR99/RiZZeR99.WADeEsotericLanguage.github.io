@@ -11,6 +11,7 @@ import org.apache.jena.util.FileManager;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -42,7 +43,7 @@ public class OntologyReader {
         List<EsotericLanguage> languages = new ArrayList<>();
         // Load an RDF model from a file (replace "data.ttl" with your RDF file)
         //Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
-        Model model = FileManager.getInternal().loadModelInternal("D:\\UAIC\\RiZZeR99.github.io\\web-application\\ontology\\ela-ontology.owl");
+        Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
         SelectBuilder selectBuilder = buildSelectForLanguage(criteria);
 
         // Execute the parameterized query
@@ -90,7 +91,7 @@ public class OntologyReader {
         }
 
         if (criteria.getAuthorDetails() != null && criteria.getAuthorDetails().isRequired()) {
-            if(criteria.getAuthorDetails().validAuthorName()) {
+            if (criteria.getAuthorDetails().validAuthorName()) {
                 selectBuilder.addWhere("?language", "ela:isCreatedBy", "?author")
                         .addWhere("?author", "ela:PersonName", "?author_name")
                         .addFilter(String.format("(\"%s\" in str(?author_name))", criteria.getAuthorDetails().getData().getName()));
@@ -99,7 +100,7 @@ public class OntologyReader {
             selectBuilder.addOptional("?language", "ela:isCreatedBy", "?author");
         }
 
-        if (criteria.getWithExamples() != null && criteria.getWithExamples().isRequired()) {
+        if (criteria.getWithExamples() != null && criteria.getWithExamples().isRequired() && criteria.getWithExamples().isWithExamplesRequired()) {
             selectBuilder.addWhere("?program", "ela:isExampleFor", "?language");
         }
 
@@ -152,8 +153,8 @@ public class OntologyReader {
         parameterizedQuery.setIri("language_placeholder", language.getURI());
 
         // Execute the parameterized query
-        try (QueryExecution qexec = QueryExecutionFactory.create(parameterizedQuery.asQuery(), model)) {
-            ResultSet results = qexec.execSelect();
+        try (QueryExecution queryExecution = QueryExecutionFactory.create(parameterizedQuery.asQuery(), model)) {
+            ResultSet results = queryExecution.execSelect();
 
             // Process the results
             while (results.hasNext()) {
@@ -164,6 +165,9 @@ public class OntologyReader {
                 EsotericLanguageCompiler compiler = new EsotericLanguageCompiler();
                 compiler.setName(name.getLexicalForm());
                 compiler.setDescription(description.getLexicalForm());
+                if (solution.getLiteral("link") != null) {
+                    compiler.setExternalLink(URI.create(solution.getLiteral("link").getString()));
+                }
                 compilers.add(compiler);
             }
         }
@@ -197,6 +201,9 @@ public class OntologyReader {
                 EsotericLanguageInterpreter interpreter = new EsotericLanguageInterpreter();
                 interpreter.setName(name.getLexicalForm());
                 interpreter.setDescription(description.getLexicalForm());
+                if (solution.getLiteral("link") != null) {
+                    interpreter.setExternalLink(URI.create(solution.getLiteral("link").getString()));
+                }
                 interpreters.add(interpreter);
             }
         }

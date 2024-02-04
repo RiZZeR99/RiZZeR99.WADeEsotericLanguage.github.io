@@ -594,7 +594,7 @@ Clean up used cells.
 It uses the classic gcc compiler and a header file, where are defined the macros for the Among Us esoteric language.
 
 Header file: https://github.com/toc8730/amongus.cpp</ela-ontology:CompilerDescription>
-        <ela-ontology:ExternalLink rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"></ela-ontology:ExternalLink>
+        <ela-ontology:CompilerName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gcc_amongus</ela-ontology:CompilerName>
     </owl:NamedIndividual>
     
 

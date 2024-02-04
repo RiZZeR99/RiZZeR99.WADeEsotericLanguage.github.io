@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.validation.annotation.Validated;
 
+import java.net.URI;
 import java.util.Objects;
 
 /**
@@ -18,6 +19,9 @@ public class EsotericLanguageCompiler {
 
     @JsonProperty("description")
     private String description = null;
+
+    @JsonProperty("external_link")
+    private URI externalLink;
 
     public EsotericLanguageCompiler name(String name) {
         this.name = name;
@@ -60,7 +64,16 @@ public class EsotericLanguageCompiler {
         }
         EsotericLanguageCompiler esotericLanguageCompiler = (EsotericLanguageCompiler) o;
         return Objects.equals(this.name, esotericLanguageCompiler.name) &&
-                Objects.equals(this.description, esotericLanguageCompiler.description);
+                Objects.equals(this.description, esotericLanguageCompiler.description) &&
+                Objects.equals(this.externalLink, esotericLanguageCompiler.externalLink);
+    }
+
+    public URI getExternalLink() {
+        return externalLink;
+    }
+
+    public void setExternalLink(URI externalLink) {
+        this.externalLink = externalLink;
     }
 
     @Override
@@ -74,6 +87,7 @@ public class EsotericLanguageCompiler {
         return "class EsotericLanguageCompiler {\n" +
                 "    name: " + toIndentedString(name) + "\n" +
                 "    description: " + toIndentedString(description) + "\n" +
+                "    external link: " + toIndentedString(externalLink) + "\n" +
                 "}";
     }
 
