@@ -226,10 +226,6 @@ function showDetails(data, languageDiv) {
     descriptionParagraph.textContent = language.description;
     languageDiv.appendChild(descriptionParagraph);
 
-    const externalLinkParagraph = document.createElement('p');
-    externalLinkParagraph.textContent = language.externalLink;
-    languageDiv.appendChild(externalLinkParagraph);
-
     if (language.compilers && language.compilers.length > 0) {
         const compilersHeader = document.createElement('h3');
         compilersHeader.textContent = 'Compilers';
@@ -275,4 +271,14 @@ function showDetails(data, languageDiv) {
         }
         languageDiv.appendChild(authorDetailsParagraph);
     }
+
+    const externalLinkParagraph = document.createElement('p');
+
+    const linkElement = document.createElement('a');
+    linkElement.textContent = "External link";
+    linkElement.href = language.external_link;
+    
+    externalLinkParagraph.appendChild(linkElement);
+    
+    languageDiv.appendChild(externalLinkParagraph);
 }
