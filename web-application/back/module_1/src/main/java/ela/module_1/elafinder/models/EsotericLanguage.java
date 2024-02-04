@@ -24,14 +24,11 @@ public class EsotericLanguage {
     @JsonProperty("description")
     private String description = null;
 
-    @JsonProperty("examplesOfPrograms")
-    private List<String> examplesOfPrograms = null;
+    @JsonProperty("program_examples")
+    private List<ProgramExample> examplesOfPrograms = null;
 
     @JsonProperty("author_details")
     private AuthorDetails authorDetails = null;
-
-    @JsonProperty("notableApplications")
-    private List<String> notableApplications = null;
 
     public EsotericLanguage name(String name) {
         this.name = name;
@@ -93,14 +90,14 @@ public class EsotericLanguage {
         this.description = description;
     }
 
-    public EsotericLanguage examplesOfPrograms(List<String> examplesOfPrograms) {
+    public EsotericLanguage examplesOfPrograms(List<ProgramExample> examplesOfPrograms) {
         this.examplesOfPrograms = examplesOfPrograms;
         return this;
     }
 
-    public EsotericLanguage addExamplesOfProgramsItem(String examplesOfProgramsItem) {
+    public EsotericLanguage addExamplesOfProgramsItem(ProgramExample examplesOfProgramsItem) {
         if (this.examplesOfPrograms == null) {
-            this.examplesOfPrograms = new ArrayList<String>();
+            this.examplesOfPrograms = new ArrayList<ProgramExample>();
         }
         this.examplesOfPrograms.add(examplesOfProgramsItem);
         return this;
@@ -113,11 +110,11 @@ public class EsotericLanguage {
      **/
     @Schema(example = "[\"Hello world : ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡°(ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) ( ͡°(ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ ( ͡° ͜ʖ ͡°)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)) ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°) ᕦ( ͡°ヮ ͡°)ᕥ(> ͜ʖ<)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡°((∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*) ͡°)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)) ͡°)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ(♥ ͜ʖ♥) ᕦ( ͡°ヮ ͡°)ᕥ(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ(♥ ͜ʖ♥)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(> ͜ʖ<)(♥ ͜ʖ♥)(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ.*(♥ ͜ʖ♥)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) (♥ ͜ʖ♥)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(> ͜ʖ<)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥᕦ( ͡°ヮ ͡°)ᕥ ( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ᕦ( ͡°ヮ ͡°)ᕥ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°)(♥ ͜ʖ♥)ಠ_ಠ\"]", description = "")
 
-    public List<String> getExamplesOfPrograms() {
+    public List<ProgramExample> getExamplesOfPrograms() {
         return examplesOfPrograms;
     }
 
-    public void setExamplesOfPrograms(List<String> examplesOfPrograms) {
+    public void setExamplesOfPrograms(List<ProgramExample> examplesOfPrograms) {
         this.examplesOfPrograms = examplesOfPrograms;
     }
 
@@ -141,35 +138,6 @@ public class EsotericLanguage {
         this.authorDetails = authorDetails;
     }
 
-    public EsotericLanguage notableApplications(List<String> notableApplications) {
-        this.notableApplications = notableApplications;
-        return this;
-    }
-
-    public EsotericLanguage addNotableApplicationsItem(String notableApplicationsItem) {
-        if (this.notableApplications == null) {
-            this.notableApplications = new ArrayList<String>();
-        }
-        this.notableApplications.add(notableApplicationsItem);
-        return this;
-    }
-
-    /**
-     * Get notableApplications
-     *
-     * @return notableApplications
-     **/
-    @Schema(example = "[\"ELUnix\",\"Vindovs\",\"MariDB\"]", description = "")
-
-    public List<String> getNotableApplications() {
-        return notableApplications;
-    }
-
-    public void setNotableApplications(List<String> notableApplications) {
-        this.notableApplications = notableApplications;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -183,28 +151,23 @@ public class EsotericLanguage {
                 Objects.equals(this.compiler, esotericLanguage.compiler) &&
                 Objects.equals(this.description, esotericLanguage.description) &&
                 Objects.equals(this.examplesOfPrograms, esotericLanguage.examplesOfPrograms) &&
-                Objects.equals(this.authorDetails, esotericLanguage.authorDetails) &&
-                Objects.equals(this.notableApplications, esotericLanguage.notableApplications);
+                Objects.equals(this.authorDetails, esotericLanguage.authorDetails);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, compiler, description, examplesOfPrograms, authorDetails, notableApplications);
+        return Objects.hash(name, compiler, description, examplesOfPrograms, authorDetails);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class EsotericLanguage {\n");
-
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    compiler: ").append(toIndentedString(compiler)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("    examplesOfPrograms: ").append(toIndentedString(examplesOfPrograms)).append("\n");
-        sb.append("    authorDetails: ").append(toIndentedString(authorDetails)).append("\n");
-        sb.append("    notableApplications: ").append(toIndentedString(notableApplications)).append("\n");
-        sb.append("}");
-        return sb.toString();
+        return "class EsotericLanguage {\n" +
+                "    name: " + toIndentedString(name) + "\n" +
+                "    compiler: " + toIndentedString(compiler) + "\n" +
+                "    description: " + toIndentedString(description) + "\n" +
+                "    examplesOfPrograms: " + toIndentedString(examplesOfPrograms) + "\n" +
+                "    authorDetails: " + toIndentedString(authorDetails) + "\n" +
+                "}";
     }
 
     /**

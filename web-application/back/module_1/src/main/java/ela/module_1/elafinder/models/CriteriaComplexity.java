@@ -14,123 +14,123 @@ import java.util.Objects;
 @Validated
 
 
-public class CriteriaComplexity   {
-  /**
-   * Gets or Sets difficulty
-   */
-  public enum DifficultyEnum {
-    EASY("easy"),
-    
-    MEDIUM("medium"),
-    
-    HARD("hard"),
-    
-    TOO_HARD("too_hard");
+public class CriteriaComplexity {
+    @JsonProperty("difficulty")
+    private DifficultyEnum difficulty = null;
+    @JsonProperty("required")
+    private Boolean required = null;
 
-    private String value;
+    public CriteriaComplexity difficulty(DifficultyEnum difficulty) {
+        this.difficulty = difficulty;
+        return this;
+    }
 
-    DifficultyEnum(String value) {
-      this.value = value;
+    /**
+     * Get difficulty
+     *
+     * @return difficulty
+     **/
+    @Schema(example = "medium", description = "")
+
+    public DifficultyEnum getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(DifficultyEnum difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public CriteriaComplexity required(Boolean required) {
+        this.required = required;
+        return this;
+    }
+
+    /**
+     * Get required
+     *
+     * @return required
+     **/
+    @Schema(example = "true", description = "")
+
+    public Boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
     }
 
     @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static DifficultyEnum fromValue(String text) {
-      for (DifficultyEnum b : DifficultyEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
-      }
-      return null;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CriteriaComplexity criteriaComplexity = (CriteriaComplexity) o;
+        return Objects.equals(this.difficulty, criteriaComplexity.difficulty) &&
+                Objects.equals(this.required, criteriaComplexity.required);
     }
-  }
-  @JsonProperty("difficulty")
-  private DifficultyEnum difficulty = null;
 
-  @JsonProperty("required")
-  private Boolean required = null;
-
-  public CriteriaComplexity difficulty(DifficultyEnum difficulty) {
-    this.difficulty = difficulty;
-    return this;
-  }
-
-  /**
-   * Get difficulty
-   * @return difficulty
-   **/
-  @Schema(example = "medium", description = "")
-  
-    public DifficultyEnum getDifficulty() {
-    return difficulty;
-  }
-
-  public void setDifficulty(DifficultyEnum difficulty) {
-    this.difficulty = difficulty;
-  }
-
-  public CriteriaComplexity required(Boolean required) {
-    this.required = required;
-    return this;
-  }
-
-  /**
-   * Get required
-   * @return required
-   **/
-  @Schema(example = "true", description = "")
-  
-    public Boolean isRequired() {
-    return required;
-  }
-
-  public void setRequired(Boolean required) {
-    this.required = required;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    @Override
+    public int hashCode() {
+        return Objects.hash(difficulty, required);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @Override
+    public String toString() {
+
+      String sb = "class CriteriaComplexity {\n" +
+              "    difficulty: " + toIndentedString(difficulty) + "\n" +
+              "    required: " + toIndentedString(required) + "\n" +
+              "}";
+        return sb;
     }
-    CriteriaComplexity criteriaComplexity = (CriteriaComplexity) o;
-    return Objects.equals(this.difficulty, criteriaComplexity.difficulty) &&
-        Objects.equals(this.required, criteriaComplexity.required);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(difficulty, required);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CriteriaComplexity {\n");
-    
-    sb.append("    difficulty: ").append(toIndentedString(difficulty)).append("\n");
-    sb.append("    required: ").append(toIndentedString(required)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Gets or Sets difficulty
+     */
+    public enum DifficultyEnum {
+        EASY("easy"),
+
+        MEDIUM("medium"),
+
+        HARD("hard"),
+
+        NO_CHANCE("no_chance");
+
+        private final String value;
+
+        DifficultyEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonCreator
+        public static DifficultyEnum fromValue(String text) {
+            for (DifficultyEnum b : DifficultyEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        @JsonValue
+        public String toString() {
+            return String.valueOf(value);
+        }
+    }
 }

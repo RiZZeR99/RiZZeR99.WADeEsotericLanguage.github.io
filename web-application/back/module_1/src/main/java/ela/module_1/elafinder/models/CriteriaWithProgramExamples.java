@@ -7,39 +7,39 @@ import org.springframework.validation.annotation.Validated;
 import java.util.Objects;
 
 /**
- * CriteriaAuthorDetails
+ * CriteriaWithExamples
  */
 @Validated
 
 
-public class CriteriaAuthorDetails {
-    @JsonProperty("author_details")
-    private AuthorDetails data = null;
+public class CriteriaWithProgramExamples {
+    @JsonProperty("with_examples_required")
+    private Boolean withExamplesRequired = null;
 
     @JsonProperty("required")
     private Boolean required = null;
 
-    public CriteriaAuthorDetails data(AuthorDetails data) {
-        this.data = data;
+    public CriteriaWithProgramExamples withExamplesRequired(Boolean withExamplesRequired) {
+        this.withExamplesRequired = withExamplesRequired;
         return this;
     }
 
     /**
-     * Get data
+     * Get withExamplesRequired
      *
-     * @return data
+     * @return withExamplesRequired
      **/
     @Schema(description = "")
 
-    public AuthorDetails getData() {
-        return data;
+    public Boolean isWithExamplesRequired() {
+        return withExamplesRequired;
     }
 
-    public void setData(AuthorDetails data) {
-        this.data = data;
+    public void setWithExamplesRequired(Boolean withExamplesRequired) {
+        this.withExamplesRequired = withExamplesRequired;
     }
 
-    public CriteriaAuthorDetails required(Boolean required) {
+    public CriteriaWithProgramExamples required(Boolean required) {
         this.required = required;
         return this;
     }
@@ -68,24 +68,23 @@ public class CriteriaAuthorDetails {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CriteriaAuthorDetails criteriaAuthorDetails = (CriteriaAuthorDetails) o;
-        return Objects.equals(this.data, criteriaAuthorDetails.data) &&
-                Objects.equals(this.required, criteriaAuthorDetails.required);
+        CriteriaWithProgramExamples criteriaWithProgramExamples = (CriteriaWithProgramExamples) o;
+        return Objects.equals(this.withExamplesRequired, criteriaWithProgramExamples.withExamplesRequired) &&
+                Objects.equals(this.required, criteriaWithProgramExamples.required);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, required);
+        return Objects.hash(withExamplesRequired, required);
     }
 
     @Override
     public String toString() {
 
-        String sb = "class CriteriaAuthorDetails {\n" +
-                "    data: " + toIndentedString(data) + "\n" +
+        return "class CriteriaWithExamples {\n" +
+                "    with_examples_required: " + toIndentedString(withExamplesRequired) + "\n" +
                 "    required: " + toIndentedString(required) + "\n" +
                 "}";
-        return sb;
     }
 
     /**

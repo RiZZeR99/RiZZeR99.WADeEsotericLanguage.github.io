@@ -8,15 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-//import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-
 @RestController
 public class GetRandomApiController implements GetRandomApi {
 
     private static final Logger log = LoggerFactory.getLogger(GetRandomApiController.class);
 
-    private  ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
 //    private  HttpServletRequest request;
 

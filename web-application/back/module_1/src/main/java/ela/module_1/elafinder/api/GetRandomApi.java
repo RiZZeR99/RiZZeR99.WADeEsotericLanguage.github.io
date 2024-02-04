@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Validated
 public interface GetRandomApi {
 
-    @Operation(summary = "Random esoteric language", description = "Returns a random esoteric language, for the scenario when the user wants an esoteric language without to think too much about it", tags={ "ela" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EsotericLanguage.class))),
-        
-        @ApiResponse(responseCode = "500", description = "Server error") })
+    @Operation(summary = "Random esoteric language", description = "Returns a random esoteric language, for the scenario when the user wants an esoteric language without to think too much about it", tags = {"ela"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EsotericLanguage.class))),
+
+            @ApiResponse(responseCode = "500", description = "Server error")})
     @RequestMapping(value = "/getRandom",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+            produces = {"application/json"},
+            method = RequestMethod.GET)
     ResponseEntity<EsotericLanguage> getRandom();
 
 }

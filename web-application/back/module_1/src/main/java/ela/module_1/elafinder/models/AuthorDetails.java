@@ -22,9 +22,6 @@ public class AuthorDetails {
     @JsonProperty("birthDate")
     private OffsetDateTime birthDate = null;
 
-    @JsonProperty("deathDate")
-    private OffsetDateTime deathDate = null;
-
     public AuthorDetails name(String name) {
         this.name = name;
         return this;
@@ -85,26 +82,6 @@ public class AuthorDetails {
         this.birthDate = birthDate;
     }
 
-    public AuthorDetails deathDate(OffsetDateTime deathDate) {
-        this.deathDate = deathDate;
-        return this;
-    }
-
-    /**
-     * Get deathDate
-     *
-     * @return deathDate
-     **/
-    @Schema(example = "1987-04-21T00:00Z", description = "")
-
-    public OffsetDateTime getDeathDate() {
-        return deathDate;
-    }
-
-    public void setDeathDate(OffsetDateTime deathDate) {
-        this.deathDate = deathDate;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -117,26 +94,22 @@ public class AuthorDetails {
         AuthorDetails authorDetails = (AuthorDetails) o;
         return Objects.equals(this.name, authorDetails.name) &&
                 Objects.equals(this.nationality, authorDetails.nationality) &&
-                Objects.equals(this.birthDate, authorDetails.birthDate) &&
-                Objects.equals(this.deathDate, authorDetails.deathDate);
+                Objects.equals(this.birthDate, authorDetails.birthDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, nationality, birthDate, deathDate);
+        return Objects.hash(name, nationality, birthDate);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class AuthorDetails {\n");
 
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    nationality: ").append(toIndentedString(nationality)).append("\n");
-        sb.append("    birthDate: ").append(toIndentedString(birthDate)).append("\n");
-        sb.append("    deathDate: ").append(toIndentedString(deathDate)).append("\n");
-        sb.append("}");
-        return sb.toString();
+        return "class AuthorDetails {\n" +
+                "    name: " + toIndentedString(name) + "\n" +
+                "    nationality: " + toIndentedString(nationality) + "\n" +
+                "    birthDate: " + toIndentedString(birthDate) + "\n" +
+                "}";
     }
 
     /**
