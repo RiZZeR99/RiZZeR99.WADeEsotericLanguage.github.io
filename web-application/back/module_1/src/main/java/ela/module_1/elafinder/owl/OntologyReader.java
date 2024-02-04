@@ -42,7 +42,6 @@ public class OntologyReader {
     public List<EsotericLanguage> getEsotericLanguagesByCriteria(Criteria criteria) {
         List<EsotericLanguage> languages = new ArrayList<>();
         // Load an RDF model from a file (replace "data.ttl" with your RDF file)
-        //Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
         Model model = FileManager.getInternal().loadModelInternal("ela-ontology.owl");
         SelectBuilder selectBuilder = buildSelectForLanguage(criteria);
 

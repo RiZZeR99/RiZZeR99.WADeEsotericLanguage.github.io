@@ -1,27 +1,74 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+    background-color: #f5f8fa; /* Light blue background */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 }
 
-.container {
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff; /* White background */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.criteria-container {
     text-align: center;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.response-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow-y: auto;
 }
 
 label, select, button {
     margin-bottom: 10px;
 }
 
-textarea {
-    width: 100%;
-    height: 100px;
-    margin-top: 10px;
+/* Light orange details */
+h1 {
+    color: #ff8c00;
+}
+
+/* Light blue details */
+h2 {
+    color: #007acc;
+}
+
+/* Light orange details */
+h3 {
+    color: #ff8c00;
+}
+
+/* Light blue details */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Light orange details */
+li {
+    margin-bottom: 10px;
+    color: #ff8c00;
 }
