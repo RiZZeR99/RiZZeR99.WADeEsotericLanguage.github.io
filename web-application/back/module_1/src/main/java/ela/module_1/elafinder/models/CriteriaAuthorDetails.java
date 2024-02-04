@@ -98,4 +98,8 @@ public class CriteriaAuthorDetails {
         }
         return o.toString().replace("\n", "\n    ");
     }
+
+    public boolean validAuthorName() {
+        return data.getName() != null && !data.getName().isBlank();
+    }
 }
