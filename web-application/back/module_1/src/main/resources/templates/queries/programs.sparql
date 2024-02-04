@@ -1,7 +1,7 @@
 PREFIX ela: <http://www.semanticweb.org/ela-ontology#>
 # query for extracting the program examples for a given language
 # the parameterized variable that must be replaced is ?language_name_to_match
-SELECT ?source_code ?description
+SELECT distinct ?source_code ?description
 WHERE
 {
 	?program ela:isExampleFor ?language_placeholder.

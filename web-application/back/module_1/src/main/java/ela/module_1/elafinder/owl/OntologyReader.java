@@ -61,6 +61,7 @@ public class OntologyReader {
 
     private SelectBuilder buildSelectForLanguage(Criteria criteria) {
         SelectBuilder selectBuilder = new SelectBuilder()
+                .setDistinct(true)
                 .addPrefix("ela", ELA_PREFIX)
                 .addPrefix("rdf", RDF_PREDIX)
                 .addPrefix("rdfs", RDFS_PREFIX)
